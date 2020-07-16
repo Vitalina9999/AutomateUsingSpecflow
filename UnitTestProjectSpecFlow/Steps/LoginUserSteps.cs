@@ -1,9 +1,10 @@
-﻿using System.Net;
-using Google.Protobuf.WellKnownTypes;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using RestSharp;
+using System.Net;
 using TechTalk.SpecFlow;
+using UnitTestProjectSpecFlow.Entities;
 
 namespace UnitTestProjectSpecFlow.Steps
 {
@@ -11,32 +12,31 @@ namespace UnitTestProjectSpecFlow.Steps
     public class LoginUserSteps
     {
         public RestClient restClient = new RestClient();
-        public string email;
-        public string password;
+        public User user = new User();
         private IRestResponse response = null;
 
         [Given(@"A correct email")]
         public void GivenACorrectEmail()
         {
-            email = "eve.holt@reqres.in";
+            user.Email = "eve.holt@reqres.in";
         }
 
         [Given(@"An incorrect email")]
         public void GivenAnInCorrectEmail()
         {
-            email = "ewewewewewe";
+            user.Email = "ewewewewewe";
         }
 
         [Given(@"an incorrect password")]
         public void GivenAnInCorrectPassword()
         {
-            password = "dfgdfgdfgdfgfd";
+            user.Password = "dfgdfgdfgdfgfd";
         }
 
         [Given(@"a correct password")]
         public void GivenAnCorrectPassword()
         {
-            password = "cityslicka";
+            user.Password = "cityslicka";
         }
 
         [When(@"I send request")]
@@ -49,25 +49,30 @@ namespace UnitTestProjectSpecFlow.Steps
 
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
-            restRequest.AddParameter("email", email);
-            restRequest.AddParameter("password", password);
+            restRequest.AddParameter("email", user.Email);
+            restRequest.AddParameter("password", user.Password);
 
             response = restClient.Execute(restRequest);
-            //string content = response.Content;
-
-            //ResponceLoginUser deserialize = JsonConvert.DeserializeObject<ResponceLoginUser>(content);
-            //return deserialize.token;
-
         }
 
-        [Then(@"User has response (.*) and token")]
-        public void ThenUserHasResponse200AndToken()
+        [Then(@"the user should be returned in the responce")]
+        public void ThenTheUserShouldBeReturnedInTheResponce()
         {
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-            Assert.IsNotNull(response.Content);
+        //  Assert.IsNotNull<OkObjectResult>(user);
         }
 
-        
+        [Then(@"the response status code is (.*)")]
+        public void ThenTheResponseStatusCodeIs(int p0)
+        {
+           Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Then(@"the token is NotNull")]
+        public void ThenTheTokenIsNotNull()
+        {
+           Assert.IsNotNull(response.Content.Contains("token"));
+        }
+                
         [Then(@"data is valid")]
         public void ThenDataIsValid()
         {
