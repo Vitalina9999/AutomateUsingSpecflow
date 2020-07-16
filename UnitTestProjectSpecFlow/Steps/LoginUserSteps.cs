@@ -62,18 +62,17 @@ namespace UnitTestProjectSpecFlow.Steps
         }
 
         [Then(@"the response status code is (.*)")]
-        public void ThenTheResponseStatusCodeIs(string statusCode)
+        public void ThenTheResponseStatusCodeIs(int statusCode)
         {
-            if (statusCode == "200 OK")
+            if (statusCode == 200) //"string statusCode 200 OK"
             {
                 Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             }
 
-            else if (statusCode == "404 Not Found")
+            else if (statusCode == 404) //" string statusCode 404 Not Found"
             {
-                Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
+                Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
             }
-
         }
 
         [Then(@"the token is NotNull")]
@@ -86,11 +85,9 @@ namespace UnitTestProjectSpecFlow.Steps
         public void ThenDataIsValid()
         {
             string content = response.Content;
-
             ResponceLoginUser deserialize = JsonConvert.DeserializeObject<ResponceLoginUser>(content);
             Assert.IsNotNull(deserialize);
-            Assert.AreEqual("dffdfdf", deserialize.token);
-        }
+         }
 
         //[Then(@"User has response (.*) and token")]
         //public void ThenUserHasResponse400AndToken()
