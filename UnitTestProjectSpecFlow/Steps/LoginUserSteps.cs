@@ -58,21 +58,30 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"the user should be returned in the responce")]
         public void ThenTheUserShouldBeReturnedInTheResponce()
         {
-        //  Assert.IsNotNull<OkObjectResult>(user);
+            //  Assert.IsNotNull<OkObjectResult>(user);
         }
 
         [Then(@"the response status code is (.*)")]
-        public void ThenTheResponseStatusCodeIs(int p0)
+        public void ThenTheResponseStatusCodeIs(string statusCode)
         {
-           Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            if (statusCode == "200 OK")
+            {
+                Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            }
+
+            else if (statusCode == "404 Not Found")
+            {
+                Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
+            }
+
         }
 
         [Then(@"the token is NotNull")]
         public void ThenTheTokenIsNotNull()
         {
-           Assert.IsNotNull(response.Content.Contains("token"));
+            Assert.IsNotNull(response.Content.Contains("token"));
         }
-                
+
         [Then(@"data is valid")]
         public void ThenDataIsValid()
         {
@@ -83,11 +92,10 @@ namespace UnitTestProjectSpecFlow.Steps
             Assert.AreEqual("dffdfdf", deserialize.token);
         }
 
-
-        [Then(@"User has response (.*) and token")]
-        public void ThenUserHasResponse400AndToken()
-        {
-            Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
-        }
+        //[Then(@"User has response (.*) and token")]
+        //public void ThenUserHasResponse400AndToken()
+        //{
+        //    Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
+        //}
     }
 }
