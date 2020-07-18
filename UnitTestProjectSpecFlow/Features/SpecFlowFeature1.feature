@@ -5,14 +5,15 @@
 Scenario: Successful login
 	Given A correct email
 	And a correct password
-	When I send request 
-	Then the user should be returned in the responce
+	When I send request
 	Then the response status code is 200
 	Then the token is NotNull
-		Then data is valid
+	Then data is valid
 
-	Scenario: UnSuccessful login
+Scenario: UnSuccessful login
 	Given An incorrect email
 	And an incorrect password
-	When I send request 
+	When I send request
 	Then the response status code is 400
+
+	#Then the user should be returned in the responce

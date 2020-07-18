@@ -56,9 +56,9 @@ namespace UnitTestProjectSpecFlow.Steps
         }
 
         [Then(@"the user should be returned in the responce")]
-        public void ThenTheUserShouldBeReturnedInTheResponce()
+        public void ThenTheUserShouldBeReturnedInTheResponce(User user)
         {
-            //  Assert.IsNotNull<OkObjectResult>(user);
+            // Assert.IsNotNull<OkObjectResult>(user.);
         }
 
         [Then(@"the response status code is (.*)")]
@@ -69,9 +69,9 @@ namespace UnitTestProjectSpecFlow.Steps
                 Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             }
 
-            else if (statusCode == 404) //" string statusCode 404 Not Found"
+            else if (statusCode == 400) //" string statusCode 404 Not Found"
             {
-                Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+                Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
             }
         }
 
