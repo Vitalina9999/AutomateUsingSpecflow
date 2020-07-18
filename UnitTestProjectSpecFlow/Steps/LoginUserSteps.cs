@@ -15,13 +15,13 @@ namespace UnitTestProjectSpecFlow.Steps
         public User user = new User();
         private IRestResponse response = null;
 
-        [Given(@"A correct email")]
+        [Given(@"a correct email")]
         public void GivenACorrectEmail()
         {
             user.Email = "eve.holt@reqres.in";
         }
-
-        [Given(@"An incorrect email")]
+        
+        [Given(@"an incorrect email")]
         public void GivenAnInCorrectEmail()
         {
             user.Email = "ewewewewewe";
@@ -39,6 +39,12 @@ namespace UnitTestProjectSpecFlow.Steps
             user.Password = "cityslicka";
         }
 
+        [Given(@"missing password")]
+        public void GivenMissingPassword()
+        {
+            user.Password = null;
+        }
+        
         [When(@"I send request")]
         public void WhenISendRequest()
         {
@@ -88,6 +94,21 @@ namespace UnitTestProjectSpecFlow.Steps
             ResponceLoginUser deserialize = JsonConvert.DeserializeObject<ResponceLoginUser>(content);
             Assert.IsNotNull(deserialize);
          }
+
+        [When(@"I send request without password")]
+        public void WhenISendRequestWithoutPassword()
+        {
+            string baseURL = "https://reqres.in";
+            string apiURL = baseURL + "/" + "api/login";
+
+            RestRequest restRequest = new RestRequest(apiURL, RestSharp.Method.POST);
+
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+            restRequest.AddParameter("email", user.Email);
+           
+            response = restClient.Execute(restRequest);
+        }
 
         //[Then(@"User has response (.*) and token")]
         //public void ThenUserHasResponse400AndToken()
