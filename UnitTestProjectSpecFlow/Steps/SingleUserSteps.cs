@@ -37,7 +37,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"the result full of data")] // DATA in process
         public void ThenTheResultFullOfData()
         {
-            string data = response.Content; //
+            string content = response.Content; //
             ResponceLoginUser deserialize = JsonConvert.DeserializeObject<ResponceLoginUser>(content);
             Assert.IsNotNull(deserialize);
            // Assert.IsNotNull(response.Content.Contains("id"));
