@@ -4,6 +4,7 @@ using System;
 using TechTalk.SpecFlow;
 using UnitTestProjectSpecFlow.Entities;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace UnitTestProjectSpecFlow.Steps
 {
@@ -37,9 +38,8 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"the result full of data")] // DATA in process
         public void ThenTheResultFullOfData()
         {
-            string content = response.Content;
-
-            Data dataDeserialize = JsonConvert.DeserializeObject<Data>(content);
+            User deserialize = JsonConvert.DeserializeObject<User>(response.Content);
+            Data dataDeserialize = JsonConvert.DeserializeObject<Data>(deserialize.Data);
             Assert.IsNotNull(dataDeserialize.Id);
             Assert.IsNotNull(dataDeserialize.Email);
             Assert.IsNotNull(dataDeserialize.FirstName);

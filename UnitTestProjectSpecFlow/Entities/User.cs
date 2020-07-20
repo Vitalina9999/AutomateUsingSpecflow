@@ -10,6 +10,7 @@ namespace UnitTestProjectSpecFlow.Entities
     {
         [JsonProperty("data")]
         public Data Data { get; set; }
+
         [JsonProperty("ad")]
         public Ad Ad { get; set; }
         public string Email { get; set; }
