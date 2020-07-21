@@ -5,6 +5,7 @@ using TechTalk.SpecFlow;
 using UnitTestProjectSpecFlow.Entities;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Net;
 
 namespace UnitTestProjectSpecFlow.Steps
 {
@@ -34,16 +35,16 @@ namespace UnitTestProjectSpecFlow.Steps
 
             response = restClient.Execute(restRequest);
         }
-
+        
         [Then(@"the result full of data")] // DATA in process
-        public void ThenTheResultFullOfData()
+        public void ThenTheResultFullOfData() // need to transfer responce to another ;ass
         {
-            User deserialize = JsonConvert.DeserializeObject<User>(response.Content);
-            Data dataDeserialize = JsonConvert.DeserializeObject<Data>(deserialize.Data);
-            Assert.IsNotNull(dataDeserialize.Id);
-            Assert.IsNotNull(dataDeserialize.Email);
-            Assert.IsNotNull(dataDeserialize.FirstName);
-            Assert.IsNotNull(dataDeserialize.LastName);
+            JsonResponce deserialize = JsonConvert.DeserializeObject<JsonResponce>(response.Content);
+            
+            Assert.IsNotNull(deserialize.Data.Id);
+            Assert.IsNotNull(deserialize.Data.Email);
+            Assert.IsNotNull(deserialize.Data.FirstName);
+            Assert.IsNotNull(deserialize.Data.LastName);
         }
     }
 }
