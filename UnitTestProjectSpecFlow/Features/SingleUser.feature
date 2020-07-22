@@ -7,11 +7,16 @@
 @mytag
 Scenario: User has full of data
 	Given user Id
-	And I have sent user id
+	And I have sent user Id
 	Then the result full of data
 	Then the status code should be OK
 
 Scenario: User is not found
 	Given unexisted user Id
-	And I have sent user id
+	And I have sent user Id
 	Then the status code should be Not Found
+
+Scenario: Get list of users
+	And I have sent request with page number
+	Then the result user list with full of data
+	Then the status code should be OK

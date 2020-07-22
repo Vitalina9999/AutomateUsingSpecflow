@@ -27,8 +27,8 @@ namespace UnitTestProjectSpecFlow.Steps
         {
             _user.Id = 244444444;
         }
-
-        [Given(@"I have sent user id")]
+        
+        [Given(@"I have sent user Id")]
         public void GivenIHaveSentUserId()
         {
             string baseURL = "https://reqres.in";
@@ -41,6 +41,29 @@ namespace UnitTestProjectSpecFlow.Steps
 
             _response = _restClient.Execute(restRequest);
         }
+
+        [Given(@"I have sent request with page number")]
+        public void GivenIHaveSentRequestWithPageNumber()
+        {
+            int page = 2;
+            string baseURL = "https://reqres.in";
+            string apiURL = baseURL + "/" + "api/users?" + "page=" + page;
+
+            RestRequest restRequest = new RestRequest(apiURL);
+
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+
+            _response = _restClient.Execute(restRequest);
+        }
+
+        [Then(@"the result user list with full of data")]
+        public void ThenTheResultUserListWithFullOfData()
+        {
+            JsonResponce deserialize = JsonConvert.DeserializeObject<JsonResponce>(_response.Content);
+
+        }
+
 
         [Then(@"the result full of data")]
         public void ThenTheResultFullOfData()
