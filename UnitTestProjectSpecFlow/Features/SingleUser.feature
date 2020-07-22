@@ -8,4 +8,4 @@ Scenario: User has full of data
 	Given user Id
 	And I have sent user id
 	Then the result full of data 
-	Then the response status code is 200
+	Then the status code should be OK

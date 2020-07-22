@@ -12,19 +12,14 @@ namespace UnitTestProjectSpecFlow.Steps
     [Binding]
     public class SingleUserSteps
     {
-        public RestClient restClient = new RestClient();
-        public User user = new User();
-        private IRestResponse response = null;
-        //public IRestResponse IRestResponse
-        //{
-        //    get { return response; }
-        //    set { response = value; }
-        //}
-
+        public RestClient _restClient = new RestClient();
+        public User _user = new User();
+        private IRestResponse _response = null;
+        
         [Given(@"user Id")]
         public void GivenUserId()
         {
-            user.Id = 2;
+            _user.Id = 2;
         }
 
         [Given(@"I have sent user id")]
@@ -38,18 +33,26 @@ namespace UnitTestProjectSpecFlow.Steps
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
             
-            response = restClient.Execute(restRequest);
+            _response = _restClient.Execute(restRequest);
         }
         
-        [Then(@"the result full of data")] // DATA in process
-        public void ThenTheResultFullOfData() // need to transfer responce to another ;ass
+        [Then(@"the result full of data")]
+        public void ThenTheResultFullOfData() 
         {
-            JsonResponce deserialize = JsonConvert.DeserializeObject<JsonResponce>(response.Content);
+           JsonResponce deserialize = JsonConvert.DeserializeObject<JsonResponce>(_response.Content);
             
             Assert.IsNotNull(deserialize.Data.Id);
             Assert.IsNotNull(deserialize.Data.Email);
             Assert.IsNotNull(deserialize.Data.FirstName);
             Assert.IsNotNull(deserialize.Data.LastName);
         }
+        [Then(@"the status code should be OK")]
+        public void ThenTheStatusCodeShouldBeOK()
+        {
+            Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
+        }
+
+
+
     }
 }

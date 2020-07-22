@@ -13,16 +13,11 @@ namespace UnitTestProjectSpecFlow.Steps
     {
         public RestClient restClient = new RestClient();
         public User user = new User();
-        private readonly SingleUserSteps _singleUserSteps;
+       
         private IRestResponse response;
 
         //Context-Injection Sharing-Data-between-Bindings
-        public LoginUserSteps(SingleUserSteps singleUserSteps)
-        {
-            _singleUserSteps = singleUserSteps;
-          
-           // response.StatusCode = singleUserSteps.responce.StatusCode;
-       }
+  // private readonly SingleUserSteps _singleUserSteps;
 
         [Given(@"a correct email")]
         public void GivenACorrectEmail()
@@ -70,10 +65,10 @@ namespace UnitTestProjectSpecFlow.Steps
             response = restClient.Execute(restRequest);
         }
 
-        [Then(@"the user should be returned in the responce")]
+        [Then(@"the _user should be returned in the responce")]
         public void ThenTheUserShouldBeReturnedInTheResponce(User user)
         {
-            // Assert.IsNotNull<OkObjectResult>(user.);
+            // Assert.IsNotNull<OkObjectResult>(_user.);
         }
 
         [Then(@"the response status code is (.*)")]
@@ -82,6 +77,7 @@ namespace UnitTestProjectSpecFlow.Steps
             if (statusCode == 200) //"string statusCode 200 OK"
             {
                 Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
             }
 
             else if (statusCode == 400) //" string statusCode 404 Not Found"
