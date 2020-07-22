@@ -15,32 +15,38 @@ namespace UnitTestProjectSpecFlow.Steps
         public RestClient _restClient = new RestClient();
         public User _user = new User();
         private IRestResponse _response = null;
-        
+
         [Given(@"user Id")]
         public void GivenUserId()
         {
             _user.Id = 2;
         }
 
+        [Given(@"unexisted user Id")]
+        public void GivenUnexistedUserId()
+        {
+            _user.Id = 244444444;
+        }
+
         [Given(@"I have sent user id")]
         public void GivenIHaveSentUserId()
         {
             string baseURL = "https://reqres.in";
-            string apiURL = baseURL + "/" + "api/users/2";
+            string apiURL = baseURL + "/" + "api/users" + "/"+ _user.Id;
 
             RestRequest restRequest = new RestRequest(apiURL);
 
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
-            
+
             _response = _restClient.Execute(restRequest);
         }
-        
+
         [Then(@"the result full of data")]
-        public void ThenTheResultFullOfData() 
+        public void ThenTheResultFullOfData()
         {
-           JsonResponce deserialize = JsonConvert.DeserializeObject<JsonResponce>(_response.Content);
-            
+            JsonResponce deserialize = JsonConvert.DeserializeObject<JsonResponce>(_response.Content);
+
             Assert.IsNotNull(deserialize.Data.Id);
             Assert.IsNotNull(deserialize.Data.Email);
             Assert.IsNotNull(deserialize.Data.FirstName);
@@ -51,8 +57,11 @@ namespace UnitTestProjectSpecFlow.Steps
         {
             Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
         }
-
-
-
+        
+        [Then(@"the status code should be Not Found")]
+        public void ThenTheStatusCodeShouldBeNotFound() //404
+        {
+            Assert.AreEqual(HttpStatusCode.NotFound, _response.StatusCode);
+        }
     }
 }
