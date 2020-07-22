@@ -11,8 +11,8 @@ namespace UnitTestProjectSpecFlow.Steps
     [Binding]
     public class LoginUserSteps
     {
-        public RestClient restClient = new RestClient();
-        public User user = new User();
+        public RestClient _restClient = new RestClient();
+        public User _user = new User();
        
         private IRestResponse response;
 
@@ -22,31 +22,31 @@ namespace UnitTestProjectSpecFlow.Steps
         [Given(@"a correct email")]
         public void GivenACorrectEmail()
         {
-            user.Email = "eve.holt@reqres.in";
+            _user.Email = "eve.holt@reqres.in";
         }
 
         [Given(@"an incorrect email")]
         public void GivenAnInCorrectEmail()
         {
-            user.Email = "ewewewewewe";
+            _user.Email = "ewewewewewe";
         }
 
         [Given(@"an incorrect password")]
         public void GivenAnInCorrectPassword()
         {
-            user.Password = "dfgdfgdfgdfgfd";
+            _user.Password = "dfgdfgdfgdfgfd";
         }
 
         [Given(@"a correct password")]
         public void GivenAnCorrectPassword()
         {
-            user.Password = "cityslicka";
+            _user.Password = "cityslicka";
         }
 
         [Given(@"missing password")]
         public void GivenMissingPassword()
         {
-            user.Password = null;
+            _user.Password = null;
         }
 
         [When(@"I send request")]
@@ -59,10 +59,10 @@ namespace UnitTestProjectSpecFlow.Steps
 
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
-            restRequest.AddParameter("email", user.Email);
-            restRequest.AddParameter("password", user.Password);
+            restRequest.AddParameter("email", _user.Email);
+            restRequest.AddParameter("password", _user.Password);
 
-            response = restClient.Execute(restRequest);
+            response = _restClient.Execute(restRequest);
         }
 
         [Then(@"the _user should be returned in the responce")]
@@ -110,9 +110,9 @@ namespace UnitTestProjectSpecFlow.Steps
 
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
-            restRequest.AddParameter("email", user.Email);
+            restRequest.AddParameter("email", _user.Email);
 
-            response = restClient.Execute(restRequest);
+            response = _restClient.Execute(restRequest);
         }
 
 

@@ -16,19 +16,19 @@ namespace UnitTestProjectSpecFlow.Steps
         public User _user = new User();
         private IRestResponse _response = null;
 
-        [Given(@"user Id")]
+        [Given(@"_user Id")]
         public void GivenUserId()
         {
             _user.Id = 2;
         }
 
-        [Given(@"unexisted user Id")]
+        [Given(@"unexisted _user Id")]
         public void GivenUnexistedUserId()
         {
             _user.Id = 244444444;
         }
 
-        [Given(@"I have sent user id")]
+        [Given(@"I have sent _user id")]
         public void GivenIHaveSentUserId()
         {
             string baseURL = "https://reqres.in";
