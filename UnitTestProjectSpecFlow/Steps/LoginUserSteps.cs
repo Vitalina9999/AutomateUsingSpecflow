@@ -13,14 +13,23 @@ namespace UnitTestProjectSpecFlow.Steps
     {
         public RestClient restClient = new RestClient();
         public User user = new User();
-        private IRestResponse response = null;
+        private readonly SingleUserSteps _singleUserSteps;
+        private IRestResponse response;
+
+        //Context-Injection Sharing-Data-between-Bindings
+        public LoginUserSteps(SingleUserSteps singleUserSteps)
+        {
+            _singleUserSteps = singleUserSteps;
+          
+           // response.StatusCode = singleUserSteps.responce.StatusCode;
+       }
 
         [Given(@"a correct email")]
         public void GivenACorrectEmail()
         {
             user.Email = "eve.holt@reqres.in";
         }
-        
+
         [Given(@"an incorrect email")]
         public void GivenAnInCorrectEmail()
         {
@@ -44,7 +53,7 @@ namespace UnitTestProjectSpecFlow.Steps
         {
             user.Password = null;
         }
-        
+
         [When(@"I send request")]
         public void WhenISendRequest()
         {
@@ -93,7 +102,7 @@ namespace UnitTestProjectSpecFlow.Steps
             string content = response.Content;
             ResponceLoginUser deserialize = JsonConvert.DeserializeObject<ResponceLoginUser>(content);
             Assert.IsNotNull(deserialize);
-         }
+        }
 
         [When(@"I send request without password")]
         public void WhenISendRequestWithoutPassword()
@@ -106,14 +115,11 @@ namespace UnitTestProjectSpecFlow.Steps
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
             restRequest.AddParameter("email", user.Email);
-           
+
             response = restClient.Execute(restRequest);
         }
 
-        //[Then(@"User has response (.*) and token")]
-        //public void ThenUserHasResponse400AndToken()
-        //{
-        //    Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
-        //}
+
+
     }
 }

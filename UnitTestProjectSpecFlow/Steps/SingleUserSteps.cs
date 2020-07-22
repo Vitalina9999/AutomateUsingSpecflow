@@ -15,6 +15,11 @@ namespace UnitTestProjectSpecFlow.Steps
         public RestClient restClient = new RestClient();
         public User user = new User();
         private IRestResponse response = null;
+        //public IRestResponse IRestResponse
+        //{
+        //    get { return response; }
+        //    set { response = value; }
+        //}
 
         [Given(@"user Id")]
         public void GivenUserId()
@@ -32,7 +37,7 @@ namespace UnitTestProjectSpecFlow.Steps
 
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
-
+            
             response = restClient.Execute(restRequest);
         }
         
