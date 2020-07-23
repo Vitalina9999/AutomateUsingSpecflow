@@ -5,5 +5,8 @@
     <Compile Update="Steps\RegisterUser.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Steps\ResourceSteps.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

@@ -14,6 +14,6 @@ namespace UnitTestProjectSpecFlow.Json
         public int Id { get; set; }
 
         [JsonProperty("error")]
-        public string? Error  { get; set; }
+        public string Error  { get; set; }
     }
 }

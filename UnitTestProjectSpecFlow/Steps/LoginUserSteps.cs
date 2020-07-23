@@ -96,8 +96,8 @@ namespace UnitTestProjectSpecFlow.Steps
         public void ThenDataIsValid()
         {
             string content = response.Content;
-            ResponceLoginUser deserialize = JsonConvert.DeserializeObject<ResponceLoginUser>(content);
-            Assert.IsNotNull(deserialize);
+            LoginResponceJson deserialize = JsonConvert.DeserializeObject<LoginResponceJson>(content);
+            Assert.IsNotNull(deserialize.Token);
         }
 
         [When(@"I send request without password")]
