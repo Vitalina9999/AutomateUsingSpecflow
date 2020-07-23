@@ -66,9 +66,8 @@ namespace UnitTestProjectSpecFlow.Steps
             Assert.IsNotNull(deserialize.PerPage);
             Assert.IsNotNull(deserialize.Total);
             Assert.IsNotNull(deserialize.TotalPages);
-            //Assert.IsNotNull(deserialize.JsonResponceList); // null?
-
-        }
+           // Assert.IsNotNull(deserialize.JsonResponceList); // null?
+          }
 
         [Then(@"the result full of data")]
         public void ThenTheResultFullOfData()
