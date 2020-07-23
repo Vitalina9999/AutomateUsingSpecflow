@@ -6,6 +6,7 @@ using UnitTestProjectSpecFlow.Entities;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net;
+using UnitTestProjectSpecFlow.Json;
 
 namespace UnitTestProjectSpecFlow.Steps
 {
@@ -27,12 +28,12 @@ namespace UnitTestProjectSpecFlow.Steps
         {
             _user.Id = 244444444;
         }
-        
+
         [Given(@"I have sent user Id")]
         public void GivenIHaveSentUserId()
         {
             string baseURL = "https://reqres.in";
-            string apiURL = baseURL + "/" + "api/users" + "/"+ _user.Id;
+            string apiURL = baseURL + "/" + "api/users" + "/" + _user.Id;
 
             RestRequest restRequest = new RestRequest(apiURL);
 
@@ -60,10 +61,17 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"the result user list with full of data")]
         public void ThenTheResultUserListWithFullOfData()
         {
-            JsonResponce deserialize = JsonConvert.DeserializeObject<JsonResponce>(_response.Content);
+            MultiplyJsonResponce deserialize = JsonConvert.DeserializeObject<MultiplyJsonResponce>(_response.Content);
+            Assert.IsNotNull(deserialize.Page);
+            Assert.IsNotNull(deserialize.PerPage);
+            Assert.IsNotNull(deserialize.Total);
+            Assert.IsNotNull(deserialize.TotalPages);
 
+            //foreach (var de in deserialize.JsonResponceList) 
+            //{
+            //    Assert.IsNotNull(de.Data.Id);// null?
+            //}
         }
-
 
         [Then(@"the result full of data")]
         public void ThenTheResultFullOfData()
@@ -80,7 +88,7 @@ namespace UnitTestProjectSpecFlow.Steps
         {
             Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
         }
-        
+
         [Then(@"the status code should be Not Found")]
         public void ThenTheStatusCodeShouldBeNotFound() //404
         {
