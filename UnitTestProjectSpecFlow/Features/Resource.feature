@@ -2,7 +2,7 @@
 	
 
 @mytag
-Scenario: Get single resource
+Scenario: Get a single resource
 	Given resource Id
 	When I sent resource request
 	Then the responce should provide data resource

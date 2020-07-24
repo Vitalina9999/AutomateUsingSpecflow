@@ -74,13 +74,13 @@ namespace UnitTestProjectSpecFlow.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Get single resource")]
+        [NUnit.Framework.DescriptionAttribute("Get a single resource")]
         [NUnit.Framework.CategoryAttribute("mytag")]
-        public virtual void GetSingleResource()
+        public virtual void GetASingleResource()
         {
             string[] tagsOfScenario = new string[] {
                     "mytag"};
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get single resource", null, new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get a single resource", null, new string[] {
                         "mytag"});
 #line 5
 this.ScenarioInitialize(scenarioInfo);

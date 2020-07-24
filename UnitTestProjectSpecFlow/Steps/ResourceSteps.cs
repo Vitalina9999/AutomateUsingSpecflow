@@ -41,8 +41,11 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"the responce should provide data resource")]
         public void ThenTheResponceShouldProvideDataResource()
         {
-            //ResourceJson deserialize = JsonConvert.DeserializeObject<ResourceJson>(_resource.Data);
-            //Assert.IsNotNull(deserialize);
+            ResourceJson deserialize = JsonConvert.DeserializeObject<ResourceJson>(response.Content);
+            Assert.IsNotNull(deserialize.Data);
+            Assert.IsNotNull(deserialize.Data.Id);
+           
+            Assert.IsNotNull(deserialize.Ad);
         }
 
         [Then(@"the resource responce status code should be OK")]
