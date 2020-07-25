@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using RestSharp;
 using TechTalk.SpecFlow;
 using UnitTestProjectSpecFlow.Features;
+using UnitTestProjectSpecFlow.Json;
 
 namespace UnitTestProjectSpecFlow.Steps
 {
@@ -16,7 +17,8 @@ namespace UnitTestProjectSpecFlow.Steps
     {
         ResourceJson _resource = new ResourceJson();
         public RestClient _restClient = new RestClient();
-        private IRestResponse response;
+        private IRestResponse _response;
+      
 
         [Given(@"resource Id")]
         public void GivenResourceId()
@@ -35,13 +37,37 @@ namespace UnitTestProjectSpecFlow.Steps
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
            
-            response = _restClient.Execute(restRequest);
+            _response = _restClient.Execute(restRequest);
         }
 
+        [When(@"I sent resource request with url")]
+        public void WhenISentResourceRequestWithUrl()
+        {
+            string baseURL = "https://reqres.in";
+            string apiURL = baseURL + "/" + "api/unknown";
+
+            RestRequest restRequest = new RestRequest(apiURL);
+
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+
+            _response = _restClient.Execute(restRequest);
+        }
+
+        [Then(@"the responce should provide list of data resource")]
+        public void ThenTheResponceShouldProvideListOfDataResource()
+        {
+            MultiplyJsonResponce deserialize = JsonConvert.DeserializeObject<MultiplyJsonResponce>(_response.Content);
+            Assert.IsNotNull(deserialize.Page);
+            Assert.IsNotNull(deserialize.PerPage);
+            Assert.IsNotNull(deserialize.Total);
+            Assert.IsNotNull(deserialize.TotalPages);
+        }
+        
         [Then(@"the responce should provide data resource")]
         public void ThenTheResponceShouldProvideDataResource()
         {
-            ResourceJson deserialize = JsonConvert.DeserializeObject<ResourceJson>(response.Content);
+            ResourceJson deserialize = JsonConvert.DeserializeObject<ResourceJson>(_response.Content);
             Assert.IsNotNull(deserialize.Data);
             Assert.IsNotNull(deserialize.Data.Id);
            
@@ -51,7 +77,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"the resource responce status code should be OK")]
         public void ThenTheResourceResponceStatusCodeShouldBeOK()
         {
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode); 
+            Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode); 
         }
 
 
