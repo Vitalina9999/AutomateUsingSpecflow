@@ -11,3 +11,7 @@ Scenario: Get a list of resources
 	When I sent resource request with url
 	Then the responce should provide list of data resource
 	And the resource responce status code should be OK
+
+Scenario:  Get a single resource Not Found
+	When I sent resource request with unknown url
+	Then the resource responce status code should be Not found
