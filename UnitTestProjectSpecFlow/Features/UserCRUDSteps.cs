@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using RestSharp;
@@ -9,21 +7,21 @@ using TechTalk.SpecFlow;
 using UnitTestProjectSpecFlow.Entities;
 using UnitTestProjectSpecFlow.Json;
 
-namespace UnitTestProjectSpecFlow.Steps
+namespace UnitTestProjectSpecFlow.Features
 {
+    [Binding]
     public class UserCRUDSteps
     {
         public UserCreate _userCreate = new UserCreate();
         public RestClient _restClient = new RestClient();
-        //public User _user = new User();
+       // public User _user = new User();
         private IRestResponse _response = null;
-
-
+       
         [Given(@"name and job")]
-        public void GivenNameAndJob(string resultName, string resultJob)
+        public void GivenNameAndJob()
         {
-            _userCreate.Name = resultName;
-            _userCreate.Job = resultJob;
+            RandomName();
+            RandomJob();
         }
 
         [When(@"I send request with method Post")]
@@ -42,6 +40,7 @@ namespace UnitTestProjectSpecFlow.Steps
             _response = _restClient.Execute(restRequest);
         }
 
+        
         [Then(@"the result should contains name, job, id, createdAt")]
         public void ThenTheResultShouldContainsNameJobIdCreatedAt()
         {
@@ -52,19 +51,18 @@ namespace UnitTestProjectSpecFlow.Steps
             Assert.IsNotNull(deserialize.CreatedAt);
             Assert.IsNotNull(deserialize.Job);
         }
-        
+
         [Then(@"the status code should be Created")]
         public void ThenTheStatusCodeShouldBeCreated()
         {
             Assert.AreEqual(HttpStatusCode.Created, _response.StatusCode);
         }
-
         private string RandomName()
         {
             Random rnd = new Random();
             int randomNumber = rnd.Next(1, 1000);
             string resultName = string.Concat("Vitalina" + randomNumber);
-
+            _userCreate.Name = resultName;
             return resultName;
         }
         private string RandomJob()
@@ -72,7 +70,7 @@ namespace UnitTestProjectSpecFlow.Steps
             Random rnd = new Random();
             int randomNumber = rnd.Next(1, 1000);
             string resultJob = string.Concat("job" + randomNumber);
-
+            _userCreate.Job = resultJob;
             return resultJob;
         }
     }
