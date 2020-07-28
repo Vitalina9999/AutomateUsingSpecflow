@@ -57,6 +57,36 @@ namespace UnitTestProjectSpecFlow.Features
         {
             Assert.AreEqual(HttpStatusCode.Created, _response.StatusCode);
         }
+
+        [Given(@"existed user id")]
+        public void GivenExistedUserId()
+        {
+            int id = 2;
+        }
+
+        [When(@"I send request with method Delete")]
+        public void WhenISendRequestWithMethodDelete()
+        {
+            string baseURL = "https://reqres.in";
+            string apiURL = baseURL + "/" + "api/users";
+
+            RestRequest restRequest = new RestRequest(apiURL, RestSharp.Method.DELETE);
+
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+            //restRequest.AddParameter("id", _userCreate.Id);
+            restRequest.AddParameter("id", 2);
+
+            _response = _restClient.Execute(restRequest);
+        }
+
+        [Then(@"the status code should be No Content")]
+        public void ThenTheStatusCodeShouldBeNoContent()
+        {
+            Assert.AreEqual(HttpStatusCode.NoContent, _response.StatusCode);
+
+        }
+
         private string RandomName()
         {
             Random rnd = new Random();
