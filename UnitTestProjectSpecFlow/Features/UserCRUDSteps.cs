@@ -87,6 +87,42 @@ namespace UnitTestProjectSpecFlow.Features
 
         }
 
+        [Given(@"user")]
+        public void GivenUser()
+        {
+            int id = 2;
+        }
+
+        [When(@"I send request with method Put")]
+        public void WhenISendRequestWithMethodPut()
+        {
+            string baseURL = "https://reqres.in";
+            string apiURL = baseURL + "/" + "api/users";
+
+            RestRequest restRequest = new RestRequest(apiURL, RestSharp.Method.PUT);
+
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+            //restRequest.AddParameter("id", _userCreate.Id);
+            restRequest.AddParameter("id", 2);
+
+            _response = _restClient.Execute(restRequest);
+        }
+
+        [Then(@"the result should contains name, job, createdAt")]
+        public void ThenTheResultShouldContainsNameJobCreatedAt()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"the status code should be Ok")]
+        public void ThenTheStatusCodeShouldBeOk()
+        {
+            Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
+
+        }
+
+
         private string RandomName()
         {
             Random rnd = new Random();

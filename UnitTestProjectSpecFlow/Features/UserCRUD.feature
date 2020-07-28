@@ -12,9 +12,9 @@ Scenario: Delete the user
 	Given existed user id
 	When I send request with method Delete
 	Then the status code should be No Content
-#	
-#Scenario: Read a user with
-#	Given user
-#	When I send request with method Put
-#	Then the result should contains name, job, createdAt
-#	And the status code should be Ok
+	
+Scenario: Put a user
+	Given user
+	When I send request with method Put
+	Then the result should contains name, job, createdAt
+	And the status code should be Ok
