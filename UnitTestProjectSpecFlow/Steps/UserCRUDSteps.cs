@@ -14,9 +14,9 @@ namespace UnitTestProjectSpecFlow.Features
     {
         public UserCreate _userCreate = new UserCreate();
         public RestClient _restClient = new RestClient();
-       // public User _user = new User();
+        // public User _user = new User();
         private IRestResponse _response = null;
-       
+
         [Given(@"name and job")]
         public void GivenNameAndJob()
         {
@@ -40,7 +40,7 @@ namespace UnitTestProjectSpecFlow.Features
             _response = _restClient.Execute(restRequest);
         }
 
-        
+
         [Then(@"the result should contains name, job, id, createdAt")]
         public void ThenTheResultShouldContainsNameJobIdCreatedAt()
         {
@@ -109,20 +109,57 @@ namespace UnitTestProjectSpecFlow.Features
             _response = _restClient.Execute(restRequest);
         }
 
-        [Then(@"the result should contains name, job, createdAt")]
-        public void ThenTheResultShouldContainsNameJobCreatedAt()
+        //[Then(@"the result should contains name, job, updatedAt")]
+        //public void ThenTheResultShouldContainsNameJobUpdatedAt()
+        //{
+        //    string content = _response.Content;
+        //    CRUDResponceJson deserialize = JsonConvert.DeserializeObject<CRUDResponceJson>(content);
+        //    Assert.IsNotNull(deserialize.Id);
+        //    Assert.IsNotNull(deserialize.Name);
+        //    Assert.IsNotNull(deserialize.UpdatedAt);
+        //    Assert.IsNotNull(deserialize.Job);
+        //}
+
+        [Given(@"user with parameters name and job")]
+        public void GivenUserWithParametersNameAndJob()
         {
-            ScenarioContext.Current.Pending();
+            RandomName();
+            RandomJob();
+            // string name = "morpheus";
+            // string job = "zion resident";
+        }
+        [When(@"I send request with changed parameters\(name, job\) method Patch")]
+        public void WhenISendRequestWithChangedParametersNameJobMethodPatch()
+        {
+            string baseURL = "https://reqres.in";
+            string apiURL = baseURL + "/" + "api/users/2";
+
+            RestRequest restRequest = new RestRequest(apiURL, RestSharp.Method.PATCH);
+
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+            restRequest.AddParameter("name", _userCreate.Name);
+            restRequest.AddParameter("job", _userCreate.Job);
+
+            _response = _restClient.Execute(restRequest);
         }
 
+        [Then(@"the result should contains name, job, updatedAt")]
+        public void ThenTheResultShouldContainsNameJobUpdatedAt()
+        {
+            string content = _response.Content;
+            CRUDResponceJson deserialize = JsonConvert.DeserializeObject<CRUDResponceJson>(content);
+            //Assert.IsNotNull(deserialize.Name);
+            Assert.IsNotNull(deserialize.UpdatedAt);
+            //Assert.IsNotNull(deserialize.Job);
+        }
+        
         [Then(@"the status code should be Ok")]
         public void ThenTheStatusCodeShouldBeOk()
         {
             Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
 
         }
-
-
         private string RandomName()
         {
             Random rnd = new Random();

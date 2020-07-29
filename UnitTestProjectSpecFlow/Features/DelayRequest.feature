@@ -2,7 +2,6 @@
 	Waiting 3 secs
 
 @mytag
-Scenario: Get user info
-	Given list of users
-	When send response with delay 
+Scenario: Get users info
+	When send response with delay
 	Then the result status code is Ok

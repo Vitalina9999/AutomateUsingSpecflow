@@ -12,9 +12,15 @@ Scenario: Delete the user
 	Given existed user id
 	When I send request with method Delete
 	Then the status code should be No Content
-	
+
 Scenario: Put a user
 	Given user
 	When I send request with method Put
-	Then the result should contains name, job, createdAt
+	Then the result should contains name, job, updatedAt
+	And the status code should be Ok
+
+Scenario: Update a user
+	Given user with parameters name and job
+	When I send request with changed parameters(name, job) method Patch
+	Then the result should contains name, job, updatedAt
 	And the status code should be Ok
