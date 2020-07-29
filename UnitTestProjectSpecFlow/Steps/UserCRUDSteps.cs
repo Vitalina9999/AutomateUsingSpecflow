@@ -16,6 +16,7 @@ namespace UnitTestProjectSpecFlow.Features
         public RestClient _restClient = new RestClient();
         // public User _user = new User();
         private IRestResponse _response = null;
+        string _baseURL = "https://reqres.in";
 
         [Given(@"name and job")]
         public void GivenNameAndJob()
@@ -27,8 +28,7 @@ namespace UnitTestProjectSpecFlow.Features
         [When(@"I send request with method Post")]
         public void WhenISendRequestWithMethodPost()
         {
-            string baseURL = "https://reqres.in";
-            string apiURL = baseURL + "/" + "api/users";
+            string apiURL = _baseURL + "/" + "api/users";
 
             RestRequest restRequest = new RestRequest(apiURL, RestSharp.Method.POST);
 
@@ -67,8 +67,7 @@ namespace UnitTestProjectSpecFlow.Features
         [When(@"I send request with method Delete")]
         public void WhenISendRequestWithMethodDelete()
         {
-            string baseURL = "https://reqres.in";
-            string apiURL = baseURL + "/" + "api/users";
+            string apiURL = _baseURL + "/" + "api/users";
 
             RestRequest restRequest = new RestRequest(apiURL, RestSharp.Method.DELETE);
 
@@ -96,8 +95,7 @@ namespace UnitTestProjectSpecFlow.Features
         [When(@"I send request with method Put")]
         public void WhenISendRequestWithMethodPut()
         {
-            string baseURL = "https://reqres.in";
-            string apiURL = baseURL + "/" + "api/users";
+            string apiURL = _baseURL + "/" + "api/users";
 
             RestRequest restRequest = new RestRequest(apiURL, RestSharp.Method.PUT);
 
@@ -131,8 +129,7 @@ namespace UnitTestProjectSpecFlow.Features
         [When(@"I send request with changed parameters\(name, job\) method Patch")]
         public void WhenISendRequestWithChangedParametersNameJobMethodPatch()
         {
-            string baseURL = "https://reqres.in";
-            string apiURL = baseURL + "/" + "api/users/2";
+            string apiURL = _baseURL + "/" + "api/users/2";
 
             RestRequest restRequest = new RestRequest(apiURL, RestSharp.Method.PATCH);
 
@@ -153,7 +150,7 @@ namespace UnitTestProjectSpecFlow.Features
             Assert.IsNotNull(deserialize.UpdatedAt);
             //Assert.IsNotNull(deserialize.Job);
         }
-        
+
         [Then(@"the status code should be Ok")]
         public void ThenTheStatusCodeShouldBeOk()
         {
