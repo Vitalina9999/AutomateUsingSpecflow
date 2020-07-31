@@ -3,15 +3,15 @@
 @mytag
 Scenario: Get a single resource
 	Given resource Id
-	When I sent resource request
-	Then the responce should provide data resource
-	And the resource responce status code should be OK
+	When I sent resourse request
+	Then the response should provide data resource
+	And the resource response status code should be OK
 
 Scenario: Get a list of resources
 	When I sent resource request with url
-	Then the responce should provide list of data resource
-	And the resource responce status code should be OK
+	Then the response should provide list of data resource
+	And the resource response status code should be OK
 
 Scenario:  Get a single resource Not Found
 	When I sent resource request with unknown url
-	Then the resource responce status code should be Not found
+	Then the resource response status code should be Not found

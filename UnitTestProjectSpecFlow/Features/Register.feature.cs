@@ -20,8 +20,8 @@ namespace UnitTestProjectSpecFlow.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Register is succesful and unsuccesful")]
-    public partial class RegisterIsSuccesfulAndUnsuccesfulFeature
+    [NUnit.Framework.DescriptionAttribute("Register user is succesful and unsuccesful")]
+    public partial class RegisterUserIsSuccesfulAndUnsuccesfulFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
@@ -35,7 +35,7 @@ namespace UnitTestProjectSpecFlow.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Register is succesful and unsuccesful", null, ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Register user is succesful and unsuccesful", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,13 +74,13 @@ namespace UnitTestProjectSpecFlow.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Register is succesful")]
+        [NUnit.Framework.DescriptionAttribute("Register user is succesful")]
         [NUnit.Framework.CategoryAttribute("mytag")]
-        public virtual void RegisterIsSuccesful()
+        public virtual void RegisterUserIsSuccesful()
         {
             string[] tagsOfScenario = new string[] {
                     "mytag"};
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Register is succesful", null, new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Register user is succesful", null, new string[] {
                         "mytag"});
 #line 4
 this.ScenarioInitialize(scenarioInfo);
@@ -119,11 +119,11 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Register is unsuccesful")]
-        public virtual void RegisterIsUnsuccesful()
+        [NUnit.Framework.DescriptionAttribute("Register user is unsuccesful")]
+        public virtual void RegisterUserIsUnsuccesful()
         {
             string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Register is unsuccesful", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Register user is unsuccesful", null, ((string[])(null)));
 #line 10
 this.ScenarioInitialize(scenarioInfo);
 #line hidden

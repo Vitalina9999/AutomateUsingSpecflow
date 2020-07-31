@@ -13,7 +13,7 @@ using UnitTestProjectSpecFlow.Json;
 namespace UnitTestProjectSpecFlow.Steps
 {
     [Binding]
-    public sealed class RegisterUser
+    public sealed class RegisterUserSteps
     {
         public RestClient _restClient = new RestClient();
         public User _user = new User();
@@ -42,15 +42,15 @@ namespace UnitTestProjectSpecFlow.Steps
             _response = _restClient.Execute(restRequest);
         }
 
-        [Then(@"the responce should provide id and token")]
-        public void ThenTheResponceShouldProvideIdAndToken()
+        [Then(@"the response should provide id and token")]
+        public void ThenTheResponseShouldProvideIdAndToken()
         {
             RegisterResponceJson deserialize = JsonConvert.DeserializeObject<RegisterResponceJson>(_response.Content);
 
             Assert.IsNotNull(deserialize.Id);
             Assert.IsNotNull(deserialize.Token);
         }
-        [Then(@"the register responce status code should be OK")]
+        [Then(@"the register response status code should be OK")]
         public void ThenTheRegisterResponceStatusCodeShouldBeOK()
         {
             Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
@@ -61,14 +61,14 @@ namespace UnitTestProjectSpecFlow.Steps
             _user.Email = "eve.holt@reqres.in";
         }
 
-        [Then(@"the responce has an error")]
-        public void ThenTheResponceHasAnError()
+        [Then(@"the response has an error")]
+        public void ThenTheResponseHasAnError()
         {
             RegisterResponceJson deserialize = JsonConvert.DeserializeObject<RegisterResponceJson>(_response.Content);
             Assert.AreEqual(deserialize.Error, "Missing password");
         }
 
-        [Then(@"the register responce status code should be BadRequest")]
+        [Then(@"the register response status code should be BadRequest")]
         public void ThenTheRegisterResponceStatusCodeShouldBeBadRequest()
         {
             Assert.AreEqual(HttpStatusCode.BadRequest, _response.StatusCode);

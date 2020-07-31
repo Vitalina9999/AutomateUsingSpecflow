@@ -13,11 +13,12 @@ namespace UnitTestProjectSpecFlow.Steps
     {
         public RestClient _restClient = new RestClient();
         public User _user = new User();
-       
+
         private IRestResponse response;
+        private string _apiURL = "https://reqres.in" + "/" + "api/login";
 
         //Context-Injection Sharing-Data-between-Bindings
-  // private readonly SingleUserSteps _singleUserSteps;
+        // private readonly SingleUserSteps _singleUserSteps;
 
         [Given(@"a correct email")]
         public void GivenACorrectEmail()
@@ -52,10 +53,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [When(@"I send request")]
         public void WhenISendRequest()
         {
-            string baseURL = "https://reqres.in";
-            string apiURL = baseURL + "/" + "api/login";
-
-            RestRequest restRequest = new RestRequest(apiURL, RestSharp.Method.POST);
+            RestRequest restRequest = new RestRequest(_apiURL, RestSharp.Method.POST);
 
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
@@ -65,8 +63,8 @@ namespace UnitTestProjectSpecFlow.Steps
             response = _restClient.Execute(restRequest);
         }
 
-        [Then(@"the _user should be returned in the responce")]
-        public void ThenTheUserShouldBeReturnedInTheResponce(User user)
+        [Then(@"the _user should be returned in the response")]
+        public void ThenTheUserShouldBeReturnedInTheResponse(User user)
         {
             // Assert.IsNotNull<OkObjectResult>(_user.);
         }
@@ -103,10 +101,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [When(@"I send request without password")]
         public void WhenISendRequestWithoutPassword()
         {
-            string baseURL = "https://reqres.in";
-            string apiURL = baseURL + "/" + "api/login";
-
-            RestRequest restRequest = new RestRequest(apiURL, RestSharp.Method.POST);
+            RestRequest restRequest = new RestRequest(_apiURL, RestSharp.Method.POST);
 
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
@@ -114,8 +109,5 @@ namespace UnitTestProjectSpecFlow.Steps
 
             response = _restClient.Execute(restRequest);
         }
-
-
-
     }
 }

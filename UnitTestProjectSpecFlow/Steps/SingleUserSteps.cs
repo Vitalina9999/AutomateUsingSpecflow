@@ -1,11 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Net;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using RestSharp;
-using System;
 using TechTalk.SpecFlow;
 using UnitTestProjectSpecFlow.Entities;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Net;
 using UnitTestProjectSpecFlow.Json;
 
 namespace UnitTestProjectSpecFlow.Steps
@@ -15,7 +13,7 @@ namespace UnitTestProjectSpecFlow.Steps
     {
         public RestClient _restClient = new RestClient();
         public User _user = new User();
-        private IRestResponse _response = null;
+        private IRestResponse _response;
 
         [Given(@"user Id")]
         public void GivenUserId()
