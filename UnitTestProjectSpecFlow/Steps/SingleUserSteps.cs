@@ -70,7 +70,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"the result full of data")]
         public void ThenTheResultFullOfData()
         {
-            JsonResponce deserialize = JsonConvert.DeserializeObject<JsonResponce>(_response.Content);
+            JsonResponse deserialize = JsonConvert.DeserializeObject<JsonResponse>(_response.Content);
 
             Assert.IsNotNull(deserialize.Data.Id);
             Assert.IsNotNull(deserialize.Data.Email);

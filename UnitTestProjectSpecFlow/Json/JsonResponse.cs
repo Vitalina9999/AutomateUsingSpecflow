@@ -6,7 +6,7 @@ using UnitTestProjectSpecFlow.Steps;
 
 namespace UnitTestProjectSpecFlow
 {
-    public class JsonResponce
+    public class JsonResponse
     {
         [JsonProperty("data")]
         public Data Data { get; set; }

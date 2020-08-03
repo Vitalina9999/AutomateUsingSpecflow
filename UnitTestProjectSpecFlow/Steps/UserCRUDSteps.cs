@@ -45,7 +45,7 @@ namespace UnitTestProjectSpecFlow.Features
         public void ThenTheResultShouldContainsNameJobIdCreatedAt()
         {
             string content = _response.Content;
-            CRUDResponceJson deserialize = JsonConvert.DeserializeObject<CRUDResponceJson>(content);
+            CRUDResponseJson deserialize = JsonConvert.DeserializeObject<CRUDResponseJson>(content);
             Assert.IsNotNull(deserialize.Id);
             Assert.IsNotNull(deserialize.Name);
             Assert.IsNotNull(deserialize.CreatedAt);
@@ -111,7 +111,7 @@ namespace UnitTestProjectSpecFlow.Features
         //public void ThenTheResultShouldContainsNameJobUpdatedAt()
         //{
         //    string content = _response.Content;
-        //    CRUDResponceJson deserialize = JsonConvert.DeserializeObject<CRUDResponceJson>(content);
+        //    CRUDResponseJson deserialize = JsonConvert.DeserializeObject<CRUDResponseJson>(content);
         //    Assert.IsNotNull(deserialize.Id);
         //    Assert.IsNotNull(deserialize.Name);
         //    Assert.IsNotNull(deserialize.UpdatedAt);
@@ -145,7 +145,7 @@ namespace UnitTestProjectSpecFlow.Features
         public void ThenTheResultShouldContainsNameJobUpdatedAt()
         {
             string content = _response.Content;
-            CRUDResponceJson deserialize = JsonConvert.DeserializeObject<CRUDResponceJson>(content);
+            CRUDResponseJson deserialize = JsonConvert.DeserializeObject<CRUDResponseJson>(content);
             //Assert.IsNotNull(deserialize.Name);
             Assert.IsNotNull(deserialize.UpdatedAt);
             //Assert.IsNotNull(deserialize.Job);

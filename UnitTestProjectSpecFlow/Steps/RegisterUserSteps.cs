@@ -45,7 +45,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"the response should provide id and token")]
         public void ThenTheResponseShouldProvideIdAndToken()
         {
-            RegisterResponceJson deserialize = JsonConvert.DeserializeObject<RegisterResponceJson>(_response.Content);
+            RegisterResponseJson deserialize = JsonConvert.DeserializeObject<RegisterResponseJson>(_response.Content);
 
             Assert.IsNotNull(deserialize.Id);
             Assert.IsNotNull(deserialize.Token);
@@ -64,7 +64,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"the response has an error")]
         public void ThenTheResponseHasAnError()
         {
-            RegisterResponceJson deserialize = JsonConvert.DeserializeObject<RegisterResponceJson>(_response.Content);
+            RegisterResponseJson deserialize = JsonConvert.DeserializeObject<RegisterResponseJson>(_response.Content);
             Assert.AreEqual(deserialize.Error, "Missing password");
         }
 

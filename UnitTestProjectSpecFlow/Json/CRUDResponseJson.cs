@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace UnitTestProjectSpecFlow.Json
 {
-   public class CRUDResponceJson
+   public class CRUDResponseJson
     {
         [JsonProperty("name")]
         public string Name { get; set; }

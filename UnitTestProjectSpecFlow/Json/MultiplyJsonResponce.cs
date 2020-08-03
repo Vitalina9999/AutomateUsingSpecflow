@@ -11,7 +11,7 @@ namespace UnitTestProjectSpecFlow.Json
         //public List<Data> DataList { get; set; }
         //public Ad AdList { get; set; }
 
-        public List<JsonResponce> JsonResponceList { get; set; }
+        public List<JsonResponse> JsonResponceList { get; set; }
 
         [JsonProperty("page")]
         public int Page { get; set; }

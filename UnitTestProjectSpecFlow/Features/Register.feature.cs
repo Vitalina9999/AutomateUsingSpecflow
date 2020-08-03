@@ -20,8 +20,8 @@ namespace UnitTestProjectSpecFlow.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Register user is succesful and unsuccesful")]
-    public partial class RegisterUserIsSuccesfulAndUnsuccesfulFeature
+    [NUnit.Framework.DescriptionAttribute("Register is succesful and unsuccesful")]
+    public partial class RegisterIsSuccesfulAndUnsuccesfulFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
@@ -35,7 +35,7 @@ namespace UnitTestProjectSpecFlow.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Register user is succesful and unsuccesful", null, ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Register is succesful and unsuccesful", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,13 +74,13 @@ namespace UnitTestProjectSpecFlow.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Register user is succesful")]
+        [NUnit.Framework.DescriptionAttribute("Register is succesful")]
         [NUnit.Framework.CategoryAttribute("mytag")]
-        public virtual void RegisterUserIsSuccesful()
+        public virtual void RegisterIsSuccesful()
         {
             string[] tagsOfScenario = new string[] {
                     "mytag"};
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Register user is succesful", null, new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Register is succesful", null, new string[] {
                         "mytag"});
 #line 4
 this.ScenarioInitialize(scenarioInfo);
@@ -109,21 +109,21 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("I sent request", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 7
- testRunner.Then("the responce should provide id and token", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the response should provide id and token", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 8
- testRunner.And("the register responce status code should be OK", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the register response status code should be OK", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Register user is unsuccesful")]
-        public virtual void RegisterUserIsUnsuccesful()
+        [NUnit.Framework.DescriptionAttribute("Register is unsuccesful")]
+        public virtual void RegisterIsUnsuccesful()
         {
             string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Register user is unsuccesful", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Register is unsuccesful", null, ((string[])(null)));
 #line 10
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -151,10 +151,10 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("I sent request", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 13
- testRunner.Then("the responce has an error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the response has an error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 14
- testRunner.And("the register responce status code should be BadRequest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the register response status code should be BadRequest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
