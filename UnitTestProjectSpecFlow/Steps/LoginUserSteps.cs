@@ -19,12 +19,11 @@ namespace UnitTestProjectSpecFlow.Steps
 
 
         //Context-Injection Sharing-Data-between-Bindings
-        private readonly ApiURL apiUrl;
+        private readonly ApiURL _apiUrl;
         private string _loginUrl;
         public LoginUserSteps(ApiURL apiUrl)
         {
-            this.apiUrl = apiUrl;
-            //this.apiUrl.loginUrl = 
+            _apiUrl = apiUrl;
             _loginUrl = apiUrl.loginUrl;
         }
 
