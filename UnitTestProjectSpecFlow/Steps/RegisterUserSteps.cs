@@ -69,7 +69,7 @@ namespace UnitTestProjectSpecFlow.Steps
         }
 
         [Then(@"the register response status code should be BadRequest")]
-        public void ThenTheRegisterResponceStatusCodeShouldBeBadRequest()
+        public void ThenTheRegisterResponseStatusCodeShouldBeBadRequest()
         {
             Assert.AreEqual(HttpStatusCode.BadRequest, _response.StatusCode);
 

@@ -28,7 +28,7 @@ namespace UnitTestProjectSpecFlow.Features
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "Register.feature"
+#line 1 "RegisterUser.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]

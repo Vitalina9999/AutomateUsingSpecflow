@@ -5,6 +5,7 @@ using RestSharp;
 using System.Net;
 using TechTalk.SpecFlow;
 using UnitTestProjectSpecFlow.Entities;
+using TechTalk.SpecFlow.Assist;
 
 namespace UnitTestProjectSpecFlow.Steps
 {
@@ -15,10 +16,18 @@ namespace UnitTestProjectSpecFlow.Steps
         public User _user = new User();
 
         private IRestResponse response;
-        private string _apiURL = "https://reqres.in" + "/" + "api/login";
+
 
         //Context-Injection Sharing-Data-between-Bindings
-        // private readonly SingleUserSteps _singleUserSteps;
+        private readonly ApiURL apiUrl;
+        private string _loginUrl;
+        public LoginUserSteps(ApiURL apiUrl)
+        {
+            this.apiUrl = apiUrl;
+            //this.apiUrl.loginUrl = 
+            _loginUrl = apiUrl.loginUrl;
+        }
+
 
         [Given(@"a correct email")]
         public void GivenACorrectEmail()
@@ -49,11 +58,10 @@ namespace UnitTestProjectSpecFlow.Steps
         {
             _user.Password = null;
         }
-
         [When(@"I send request")]
         public void WhenISendRequest()
         {
-            RestRequest restRequest = new RestRequest(_apiURL, RestSharp.Method.POST);
+            RestRequest restRequest = new RestRequest(_loginUrl, RestSharp.Method.POST);
 
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
@@ -101,7 +109,8 @@ namespace UnitTestProjectSpecFlow.Steps
         [When(@"I send request without password")]
         public void WhenISendRequestWithoutPassword()
         {
-            RestRequest restRequest = new RestRequest(_apiURL, RestSharp.Method.POST);
+            //apiUrl.loginUrl = loginUrl;
+            RestRequest restRequest = new RestRequest(_loginUrl, RestSharp.Method.POST);
 
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
