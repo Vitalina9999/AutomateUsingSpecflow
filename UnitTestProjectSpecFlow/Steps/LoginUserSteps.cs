@@ -27,13 +27,6 @@ namespace UnitTestProjectSpecFlow.Steps
             _loginUrl = apiUrl.loginUrl;
         }
 
-
-        [Given(@"a correct email")]
-        public void GivenACorrectEmail()
-        {
-            _user.Email = "eve.holt@reqres.in";
-        }
-
         [Given(@"an incorrect email")]
         public void GivenAnInCorrectEmail()
         {
@@ -46,17 +39,21 @@ namespace UnitTestProjectSpecFlow.Steps
             _user.Password = "dfgdfgdfgdfgfd";
         }
 
-        [Given(@"a correct password")]
-        public void GivenAnCorrectPassword()
-        {
-            _user.Password = "cityslicka";
-        }
-
         [Given(@"missing password")]
         public void GivenMissingPassword()
         {
             _user.Password = null;
         }
+
+        [Given(@"I entered the following data into the login form:")]
+        public void GivenIEnteredTheFollowingDataIntoTheLoginForm(Table table)
+        {
+            var account = table.CreateInstance<User>();
+            _user.Email = account.Email;
+            _user.Password = account.Password;
+        }
+
+
         [When(@"I send request")]
         public void WhenISendRequest()
         {
@@ -96,6 +93,14 @@ namespace UnitTestProjectSpecFlow.Steps
         {
             Assert.IsNotNull(response.Content.Contains("token"));
         }
+
+
+        [Then(@"the result status code should be Ok")]
+        public void ThenTheResultStatusCodeShouldBeOk()
+        {
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
+
 
         [Then(@"data is valid")]
         public void ThenDataIsValid()

@@ -3,12 +3,11 @@
 
 @mytag
 Scenario: Successful login
-	Given a correct email
-	And a correct password
+	Given I entered the following data into the login form:
+		| Email              | Password   |
+		| eve.holt@reqres.in | cityslicka |
 	When I send request
-	Then the response status code is 200
-	Then the token is NotNull
-	Then data is valid
+	Then the result status code should be Ok
 
 Scenario: UnSuccessful login (incorrect email and password)
 	Given an incorrect email
