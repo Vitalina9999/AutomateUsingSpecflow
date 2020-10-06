@@ -10,10 +10,11 @@ Scenario: Successful login
 	Then the result status code should be Ok
 
 Scenario: UnSuccessful login (incorrect email and password)
-	Given an incorrect email
-	And an incorrect password
+	Given I entered the incorrect data into the login form
+		| Email          | Password |
+		| ewewew@rees.in | retete   |
 	When I send request
-	Then the response status code is 400
+	Then the response is BadRequest
 
 Scenario: UnSuccessful login (Missing password)
 	Given a correct email
