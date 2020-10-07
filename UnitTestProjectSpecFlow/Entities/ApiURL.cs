@@ -8,6 +8,6 @@ namespace UnitTestProjectSpecFlow.Entities
     {
         public string baseURL = "https://reqres.in";
         public string loginUrl = "https://reqres.in/api/login";
-
+        public string registerUrl = "https://reqres.in/api/register";
     }
 }

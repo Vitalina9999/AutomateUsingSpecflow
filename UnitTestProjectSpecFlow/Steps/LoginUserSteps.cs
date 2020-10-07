@@ -17,7 +17,7 @@ namespace UnitTestProjectSpecFlow.Steps
         private IRestResponse response;
         
         //Context-Injection Sharing-Data-between-Bindings
-       private readonly string _loginUrl;
+        private readonly string _loginUrl;
         public LoginUserSteps(ApiURL apiUrl)
         {
             _loginUrl = apiUrl.loginUrl;

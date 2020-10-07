@@ -3,6 +3,8 @@
 @mytag
 Scenario: Register is succesful
 	Given I have entered credentials
+		| Email              | Password |
+		| eve.holt@reqres.in | pistol   |
 	When I sent request
 	Then the response should provide id and token
 	And the register response status code should be OK

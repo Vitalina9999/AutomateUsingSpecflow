@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using RestSharp;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 using UnitTestProjectSpecFlow.Entities;
 using UnitTestProjectSpecFlow.Json;
 
@@ -17,24 +18,27 @@ namespace UnitTestProjectSpecFlow.Steps
     {
         public RestClient _restClient = new RestClient();
         public User _user = new User();
-
         private IRestResponse _response;
 
-        [Given(@"I have entered credentials")]
-        public void GivenIHaveEnteredCredentials()
+        //Context-Injection Sharing-Data-between-Bindings
+        private readonly string _registerUrl;
+        public RegisterUserSteps(ApiURL apiUrl)
         {
-            _user.Email = "eve.holt@reqres.in";
-            _user.Password = "pistol";
+            _registerUrl = apiUrl.registerUrl;
+        }
+
+        [Given(@"I have entered credentials")]
+        public void GivenIHaveEnteredCredentials(Table table)
+        {
+            var account = table.CreateInstance<User>();
+            _user.Email = account.Email;
+            _user.Password = account.Password;
         }
 
         [When(@"I sent request")]
         public void WhenISentRequest()
         {
-            string baseURL = "https://reqres.in";
-            string apiURL = baseURL + "/" + "api/register";
-
-            RestRequest restRequest = new RestRequest(apiURL, RestSharp.Method.POST);
-
+            RestRequest restRequest = new RestRequest(_registerUrl, RestSharp.Method.POST);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
             restRequest.AddParameter("email", _user.Email);
@@ -72,7 +76,6 @@ namespace UnitTestProjectSpecFlow.Steps
         public void ThenTheRegisterResponseStatusCodeShouldBeBadRequest()
         {
             Assert.AreEqual(HttpStatusCode.BadRequest, _response.StatusCode);
-
         }
     }
 }
