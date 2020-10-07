@@ -11,6 +11,8 @@ Scenario: Register is succesful
 
 Scenario: Register is unsuccesful
 	Given I have entered only email
+		| Email              | 
+		| eve.holt@reqres.in | 
 	When I sent request
 	Then the response has an error
 	And the register response status code should be BadRequest

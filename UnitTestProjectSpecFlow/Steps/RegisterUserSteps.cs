@@ -35,6 +35,13 @@ namespace UnitTestProjectSpecFlow.Steps
             _user.Password = account.Password;
         }
 
+        [Given(@"I have entered only email")]
+        public void GivenIHaveEnteredOnlyEmail(Table table)
+        {
+            var account = table.CreateInstance<User>();
+            _user.Email = account.Email;
+        }
+
         [When(@"I sent request")]
         public void WhenISentRequest()
         {
@@ -59,12 +66,7 @@ namespace UnitTestProjectSpecFlow.Steps
         {
             Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
         }
-        [Given(@"I have entered only email")]
-        public void GivenIHaveEnteredOnlyEmail()
-        {
-            _user.Email = "eve.holt@reqres.in";
-        }
-
+        
         [Then(@"the response has an error")]
         public void ThenTheResponseHasAnError()
         {
