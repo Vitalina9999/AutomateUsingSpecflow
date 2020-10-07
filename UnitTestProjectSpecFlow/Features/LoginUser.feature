@@ -17,8 +17,8 @@ Scenario: UnSuccessful login (incorrect email and password)
 	Then the response is BadRequest
 
 Scenario: UnSuccessful login (Missing password)
-	Given a correct email
-	And missing password
+	Given I entered only email into the login form
+		| Email          |
+		| ewewew@rees.in |
 	When I send request without password
-	Then the response status code is 400
-#Then the user should be returned in the responce
+	Then the response is BadRequest
