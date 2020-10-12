@@ -1,8 +1,10 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using RestSharp;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 using UnitTestProjectSpecFlow.Entities;
 using UnitTestProjectSpecFlow.Json;
 
@@ -15,29 +17,33 @@ namespace UnitTestProjectSpecFlow.Steps
         public User _user = new User();
         private IRestResponse _response;
 
-        [Given(@"user Id")]
-        public void GivenUserId()
+        private readonly string _usersUrl;
+        public SingleUserSteps(ApiURL apiUrl)
         {
-            _user.Id = 2;
+            _usersUrl = apiUrl.usersUrl;
         }
+
 
         [Given(@"unexisted user Id")]
         public void GivenUnexistedUserId()
         {
             _user.Id = 244444444;
         }
+        [Given(@"user Id")]
+        public void GivenUserId(Table table)
+        {
+            var account = table.CreateInstance<User>();
+            _user.Id = account.Id;
+        }
 
         [Given(@"I have sent user Id")]
         public void GivenIHaveSentUserId()
         {
-            string baseURL = "https://reqres.in";
-            string apiURL = baseURL + "/" + "api/users" + "/" + _user.Id;
-
-            RestRequest restRequest = new RestRequest(apiURL);
-
+            string userIdUrl = String.Concat(_usersUrl, "/", _user.Id);
+            RestRequest restRequest = new RestRequest(userIdUrl);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
-
+            
             _response = _restClient.Execute(restRequest);
         }
 
@@ -64,8 +70,8 @@ namespace UnitTestProjectSpecFlow.Steps
             Assert.IsNotNull(deserialize.PerPage);
             Assert.IsNotNull(deserialize.Total);
             Assert.IsNotNull(deserialize.TotalPages);
-           // Assert.IsNotNull(deserialize.JsonResponceList); // null?
-          }
+            // Assert.IsNotNull(deserialize.JsonResponceList); // null?
+        }
 
         [Then(@"the result full of data")]
         public void ThenTheResultFullOfData()

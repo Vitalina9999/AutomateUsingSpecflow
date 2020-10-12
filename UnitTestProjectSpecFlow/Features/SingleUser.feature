@@ -7,6 +7,8 @@
 @mytag
 Scenario: User has full of data
 	Given user Id
+		| Id |
+		| 2  |
 	And I have sent user Id
 	Then the result full of data
 	Then the status code should be OK
