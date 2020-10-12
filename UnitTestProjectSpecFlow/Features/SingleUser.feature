@@ -1,8 +1,8 @@
 ﻿Feature: SingleUser
 	Receive data from existed user:
 	id, email, first_name, last_name, avatar
-	Receive StatusCode 200
-	Otherwise 400
+	Receive StatusCode Ok 200
+	Otherwise Not Found 400
 
 @mytag
 Scenario: User has full of data
@@ -14,7 +14,9 @@ Scenario: User has full of data
 	Then the status code should be OK
 
 Scenario: User is not found
-	Given unexisted user Id
+	Given user Id
+		| Id    |
+		| 25555 |
 	And I have sent user Id
 	Then the status code should be Not Found
 

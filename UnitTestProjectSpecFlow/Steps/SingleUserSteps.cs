@@ -23,12 +23,6 @@ namespace UnitTestProjectSpecFlow.Steps
             _usersUrl = apiUrl.usersUrl;
         }
 
-
-        [Given(@"unexisted user Id")]
-        public void GivenUnexistedUserId()
-        {
-            _user.Id = 244444444;
-        }
         [Given(@"user Id")]
         public void GivenUserId(Table table)
         {
@@ -36,14 +30,14 @@ namespace UnitTestProjectSpecFlow.Steps
             _user.Id = account.Id;
         }
 
-        [Given(@"I have sent user Id")]
+       [Given(@"I have sent user Id")]
         public void GivenIHaveSentUserId()
         {
             string userIdUrl = String.Concat(_usersUrl, "/", _user.Id);
             RestRequest restRequest = new RestRequest(userIdUrl);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
-            
+
             _response = _restClient.Execute(restRequest);
         }
 
@@ -70,7 +64,6 @@ namespace UnitTestProjectSpecFlow.Steps
             Assert.IsNotNull(deserialize.PerPage);
             Assert.IsNotNull(deserialize.Total);
             Assert.IsNotNull(deserialize.TotalPages);
-            // Assert.IsNotNull(deserialize.JsonResponceList); // null?
         }
 
         [Then(@"the result full of data")]
