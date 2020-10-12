@@ -21,6 +21,9 @@ Scenario: User is not found
 	Then the status code should be Not Found
 
 Scenario: Get list of users
+	Given page number
+		| Page |
+		| 2    |
 	And I have sent request with page number
 	Then the result user list with full of data
 	Then the status code should be OK

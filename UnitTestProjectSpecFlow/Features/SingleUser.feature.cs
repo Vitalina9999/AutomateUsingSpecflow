@@ -192,13 +192,20 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Page"});
+                table8.AddRow(new string[] {
+                            "2"});
 #line 24
+ testRunner.Given("page number", ((string)(null)), table8, "Given ");
+#line hidden
+#line 27
  testRunner.And("I have sent request with page number", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 25
+#line 28
  testRunner.Then("the result user list with full of data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 26
+#line 29
  testRunner.Then("the status code should be OK", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
@@ -16,8 +17,10 @@ namespace UnitTestProjectSpecFlow.Steps
         public RestClient _restClient = new RestClient();
         public User _user = new User();
         private IRestResponse _response;
+        public Pages _pages = new Pages();
 
         private readonly string _usersUrl;
+        
         public SingleUserSteps(ApiURL apiUrl)
         {
             _usersUrl = apiUrl.usersUrl;
@@ -26,11 +29,18 @@ namespace UnitTestProjectSpecFlow.Steps
         [Given(@"user Id")]
         public void GivenUserId(Table table)
         {
-            var account = table.CreateInstance<User>();
+            User account = table.CreateInstance<User>();
             _user.Id = account.Id;
         }
 
-       [Given(@"I have sent user Id")]
+        [Given(@"page number")]
+        public void GivenPageNumber(Table table)
+        {
+            Pages pagesList = table.CreateInstance<Pages>();
+            _pages.Page = pagesList.Page;
+        }
+
+        [Given(@"I have sent user Id")]
         public void GivenIHaveSentUserId()
         {
             string userIdUrl = String.Concat(_usersUrl, "/", _user.Id);
@@ -44,12 +54,10 @@ namespace UnitTestProjectSpecFlow.Steps
         [Given(@"I have sent request with page number")]
         public void GivenIHaveSentRequestWithPageNumber()
         {
-            int page = 2;
-            string baseURL = "https://reqres.in";
-            string apiURL = baseURL + "/" + "api/users?" + "page=" + page;
+            // UriBuilder https://stackoverflow.com/questions/20164298/how-to-build-a-url
+            string usersPageUrl = String.Concat(_usersUrl, "?", _pages.Page);
 
-            RestRequest restRequest = new RestRequest(apiURL);
-
+            RestRequest restRequest = new RestRequest(usersPageUrl);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
 
