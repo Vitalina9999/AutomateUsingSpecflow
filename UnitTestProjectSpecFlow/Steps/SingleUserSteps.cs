@@ -8,6 +8,7 @@ using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using UnitTestProjectSpecFlow.Entities;
 using UnitTestProjectSpecFlow.Json;
+using Flurl;
 
 namespace UnitTestProjectSpecFlow.Steps
 {
@@ -19,8 +20,8 @@ namespace UnitTestProjectSpecFlow.Steps
         private IRestResponse _response;
         public Pages _pages = new Pages();
 
-        private readonly string _usersUrl;
-        
+        private readonly Url _usersUrl;
+
         public SingleUserSteps(ApiURL apiUrl)
         {
             _usersUrl = apiUrl.usersUrl;
@@ -43,7 +44,8 @@ namespace UnitTestProjectSpecFlow.Steps
         [Given(@"I have sent user Id")]
         public void GivenIHaveSentUserId()
         {
-            string userIdUrl = String.Concat(_usersUrl, "/", _user.Id);
+            Url userIdUrl = Url.Combine(_usersUrl, "/", _user.Id.ToString());
+
             RestRequest restRequest = new RestRequest(userIdUrl);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
@@ -54,8 +56,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Given(@"I have sent request with page number")]
         public void GivenIHaveSentRequestWithPageNumber()
         {
-            // UriBuilder https://stackoverflow.com/questions/20164298/how-to-build-a-url
-            string usersPageUrl = String.Concat(_usersUrl, "?", _pages.Page);
+            Url usersPageUrl = _usersUrl.SetQueryParam("page", _pages.Page);
 
             RestRequest restRequest = new RestRequest(usersPageUrl);
             restRequest.AddHeader("Accept", "application/json");
