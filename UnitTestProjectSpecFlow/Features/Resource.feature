@@ -2,8 +2,10 @@
 
 @mytag
 Scenario: Get a single resource
-	Given resource Id
-	When I sent resourse request
+	Given resource number
+		| Number |
+		| 2      |
+	When I sent resource request
 	Then the response should provide data resource
 	And the resource response status code should be OK
 
@@ -13,5 +15,8 @@ Scenario: Get a list of resources
 	And the resource response status code should be OK
 
 Scenario:  Get a single resource Not Found
+	Given resource number
+		| Number |
+		| 255555 |
 	When I sent resource request with unknown url
 	Then the resource response status code should be Not found

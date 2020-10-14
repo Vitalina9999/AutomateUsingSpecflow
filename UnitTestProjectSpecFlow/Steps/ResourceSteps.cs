@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using Flurl;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using RestSharp;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
+using UnitTestProjectSpecFlow.Entities;
 using UnitTestProjectSpecFlow.Features;
 using UnitTestProjectSpecFlow.Json;
 
@@ -15,53 +18,55 @@ namespace UnitTestProjectSpecFlow.Steps
     [Binding]
     public class ResourceSteps
     {
-        ResourceJson _resource = new ResourceJson();
         public RestClient _restClient = new RestClient();
         private IRestResponse _response;
-        private string _baseURL = "https://reqres.in";
+        Resource _resource = new Resource();
 
-        [Given(@"resource Id")]
-        public void GivenResourceId()
+        private readonly Url _resourceUrl;
+
+        public ResourceSteps(ApiURL apiUrl)
         {
-            int resourceId = 2;
+            _resourceUrl = apiUrl.resourceUrl;
         }
 
-        [When(@"I sent resourse request")]
+        [Given(@"resource number")]
+        public void GivenResourceNumber(Table table)
+        {
+            Resource account = table.CreateInstance<Resource>();
+            _resource.Number = account.Number;
+        }
+
+        [When(@"I sent resource request")]
         public void WhenISentResourceRequest()
         {
-            string apiURL = _baseURL + "/" + "api/unknown" + "/" + 2;
+            Url userIdUrl = Url.Combine(_resourceUrl, "/", _resource.Number.ToString());
 
-            RestRequest restRequest = new RestRequest(apiURL);
+            RestRequest restRequest = new RestRequest(userIdUrl);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
-
             _response = _restClient.Execute(restRequest);
         }
 
         [When(@"I sent resource request with url")]
         public void WhenISentResourceRequestWithUrl()
         {
-            string apiURL = _baseURL + "/" + "api/unknown";
-
-            RestRequest restRequest = new RestRequest(apiURL);
+            RestRequest restRequest = new RestRequest(_resourceUrl);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
-
             _response = _restClient.Execute(restRequest);
         }
 
         [When(@"I sent resource request with unknown url")]
         public void WhenISentResourceRequestWithUnknownUrl()
         {
-           string apiURL = _baseURL + "/" + "api/unknown" + "/" + 255555;
+            Url userIdUrl = Url.Combine(_resourceUrl, "/", _resource.Number.ToString());
 
-            RestRequest restRequest = new RestRequest(apiURL);
+            RestRequest restRequest = new RestRequest(userIdUrl);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
-
             _response = _restClient.Execute(restRequest);
         }
-        
+
         [Then(@"the response should provide list of data resource")]
         public void ThenTheResponseShouldProvideListOfDataResource()
         {
@@ -78,7 +83,6 @@ namespace UnitTestProjectSpecFlow.Steps
             ResourceJson deserialize = JsonConvert.DeserializeObject<ResourceJson>(_response.Content);
             Assert.IsNotNull(deserialize.Data);
             Assert.IsNotNull(deserialize.Data.Id);
-
             Assert.IsNotNull(deserialize.Ad);
         }
 
@@ -93,11 +97,5 @@ namespace UnitTestProjectSpecFlow.Steps
         {
             Assert.AreEqual(HttpStatusCode.NotFound, _response.StatusCode);
         }
-
-
-
-
-
-
     }
 }

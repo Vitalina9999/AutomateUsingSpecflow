@@ -103,12 +103,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                             "Id"});
-                table6.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "2"});
 #line 9
- testRunner.Given("user Id", ((string)(null)), table6, "Given ");
+ testRunner.Given("user Id", ((string)(null)), table8, "Given ");
 #line hidden
 #line 12
  testRunner.And("I have sent user Id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -149,12 +149,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                             "Id"});
-                table7.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "25555"});
 #line 17
- testRunner.Given("user Id", ((string)(null)), table7, "Given ");
+ testRunner.Given("user Id", ((string)(null)), table9, "Given ");
 #line hidden
 #line 20
  testRunner.And("I have sent user Id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -192,12 +192,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                             "Page"});
-                table8.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "2"});
 #line 24
- testRunner.Given("page number", ((string)(null)), table8, "Given ");
+ testRunner.Given("page number", ((string)(null)), table10, "Given ");
 #line hidden
 #line 27
  testRunner.And("I have sent request with page number", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");

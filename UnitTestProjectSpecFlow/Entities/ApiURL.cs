@@ -11,5 +11,6 @@ namespace UnitTestProjectSpecFlow.Entities
         public string registerUrl = "https://reqres.in/api/register";
         public string usersUrl = "https://reqres.in/api/users";
         //public string delayURL = "https://reqres.in/api/users?delay=3";
+        public string resourceUrl = "https://reqres.in/api/unknown";
     }
 }
