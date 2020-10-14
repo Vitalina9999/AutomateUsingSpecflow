@@ -21,10 +21,10 @@ namespace UnitTestProjectSpecFlow.Steps
             _usersUrl = apiUrl.usersUrl;
         }
 
-        [When(@"send response with delay")]
-        public void WhenSendResponseWithDelay()
+        [When(@"send response with delay (.*) secs")]
+        public void WhenSendResponseWithDelaySecs(int delaySecs)
         {
-            Url usersPageUrl = _usersUrl.SetQueryParam("delay", 3);
+            Url usersPageUrl = _usersUrl.SetQueryParam("delay", delaySecs);
 
             CancellationTokenSource source = new CancellationTokenSource();
             Task.Delay(3000, source.Token);
