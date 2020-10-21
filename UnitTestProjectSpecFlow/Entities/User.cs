@@ -11,9 +11,14 @@ namespace UnitTestProjectSpecFlow.Entities
         public string Email { get; set; }
         public string Password { get; set; }
         public int Id { get; set; }
+
+        [JsonProperty("name")]
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Avatar { get; set; }
-   
+
+        [JsonProperty("job")]
+        public string Job { get; set; }
+
     }
 }

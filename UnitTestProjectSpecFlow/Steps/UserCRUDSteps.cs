@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Net;
+using Flurl;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using RestSharp;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 using UnitTestProjectSpecFlow.Entities;
 using UnitTestProjectSpecFlow.Json;
 
@@ -12,34 +14,42 @@ namespace UnitTestProjectSpecFlow.Features
     [Binding]
     public class UserCRUDSteps
     {
-        public UserCreate _userCreate = new UserCreate();
-        public RestClient _restClient = new RestClient();
-        // public User _user = new User();
-        private IRestResponse _response = null;
-        string _baseURL = "https://reqres.in";
-
-        [Given(@"name and job")]
-        public void GivenNameAndJob()
+        private User _user = new User();
+        private RestClient _restClient = new RestClient();
+        private IRestResponse _response;
+       
+        private readonly Url _usersUrl;
+        public UserCRUDSteps(ApiURL apiUrl)
         {
-            RandomName();
-            RandomJob();
+            _usersUrl = apiUrl.usersUrl;
+        }
+
+        [Given(@"user with name and job")]
+        public void GivenUserWithNameAndJob(Table table)
+        {
+            User account = table.CreateInstance<User>();
+            _user.FirstName = account.FirstName;
+            _user.Job = account.Job;
+        }
+
+        [Given(@"user id")]
+        public void GivenUserId(Table table)
+        {
+            User account = table.CreateInstance<User>();
+            _user.Id = account.Id;
         }
 
         [When(@"I send request with method Post")]
         public void WhenISendRequestWithMethodPost()
         {
-            string apiURL = _baseURL + "/" + "api/users";
-
-            RestRequest restRequest = new RestRequest(apiURL, RestSharp.Method.POST);
-
+            RestRequest restRequest = new RestRequest(_usersUrl, RestSharp.Method.POST);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
-            restRequest.AddParameter("name", _userCreate.Name);
-            restRequest.AddParameter("job", _userCreate.Job);
+            restRequest.AddParameter("name", _user.FirstName);
+            restRequest.AddParameter("job", _user.Job);
 
             _response = _restClient.Execute(restRequest);
         }
-
 
         [Then(@"the result should contains name, job, id, createdAt")]
         public void ThenTheResultShouldContainsNameJobIdCreatedAt()
@@ -58,24 +68,13 @@ namespace UnitTestProjectSpecFlow.Features
             Assert.AreEqual(HttpStatusCode.Created, _response.StatusCode);
         }
 
-        [Given(@"existed user id")]
-        public void GivenExistedUserId()
-        {
-            int id = 2;
-        }
-
         [When(@"I send request with method Delete")]
         public void WhenISendRequestWithMethodDelete()
         {
-            string apiURL = _baseURL + "/" + "api/users";
-
-            RestRequest restRequest = new RestRequest(apiURL, RestSharp.Method.DELETE);
-
+            RestRequest restRequest = new RestRequest(_usersUrl, RestSharp.Method.DELETE);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
-            //restRequest.AddParameter("id", _userCreate.Id);
-            restRequest.AddParameter("id", 2);
-
+            restRequest.AddParameter("id", _user.Id);
             _response = _restClient.Execute(restRequest);
         }
 
@@ -83,61 +82,28 @@ namespace UnitTestProjectSpecFlow.Features
         public void ThenTheStatusCodeShouldBeNoContent()
         {
             Assert.AreEqual(HttpStatusCode.NoContent, _response.StatusCode);
-
-        }
-
-        [Given(@"user")]
-        public void GivenUser()
-        {
-            int id = 2;
         }
 
         [When(@"I send request with method Put")]
         public void WhenISendRequestWithMethodPut()
         {
-            string apiURL = _baseURL + "/" + "api/users";
-
-            RestRequest restRequest = new RestRequest(apiURL, RestSharp.Method.PUT);
-
+            RestRequest restRequest = new RestRequest(_usersUrl, RestSharp.Method.PUT);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
-            //restRequest.AddParameter("id", _userCreate.Id);
-            restRequest.AddParameter("id", 2);
-
+            restRequest.AddParameter("id", _user.Id);
             _response = _restClient.Execute(restRequest);
         }
 
-        //[Then(@"the result should contains name, job, updatedAt")]
-        //public void ThenTheResultShouldContainsNameJobUpdatedAt()
-        //{
-        //    string content = _response.Content;
-        //    CRUDResponseJson deserialize = JsonConvert.DeserializeObject<CRUDResponseJson>(content);
-        //    Assert.IsNotNull(deserialize.Id);
-        //    Assert.IsNotNull(deserialize.Name);
-        //    Assert.IsNotNull(deserialize.UpdatedAt);
-        //    Assert.IsNotNull(deserialize.Job);
-        //}
-
-        [Given(@"user with parameters name and job")]
-        public void GivenUserWithParametersNameAndJob()
-        {
-            RandomName();
-            RandomJob();
-            // string name = "morpheus";
-            // string job = "zion resident";
-        }
         [When(@"I send request with changed parameters\(name, job\) method Patch")]
         public void WhenISendRequestWithChangedParametersNameJobMethodPatch()
         {
-            string apiURL = _baseURL + "/" + "api/users/2";
+            Url userIdUrl = Url.Combine(_usersUrl, "/", _user.Id.ToString());
 
-            RestRequest restRequest = new RestRequest(apiURL, RestSharp.Method.PATCH);
-
+            RestRequest restRequest = new RestRequest(userIdUrl, RestSharp.Method.PATCH);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
-            restRequest.AddParameter("name", _userCreate.Name);
-            restRequest.AddParameter("job", _userCreate.Job);
-
+            restRequest.AddParameter("name", _user.FirstName);
+            restRequest.AddParameter("job", _user.Job);
             _response = _restClient.Execute(restRequest);
         }
 
@@ -155,23 +121,6 @@ namespace UnitTestProjectSpecFlow.Features
         public void ThenTheStatusCodeShouldBeOk()
         {
             Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
-
-        }
-        private string RandomName()
-        {
-            Random rnd = new Random();
-            int randomNumber = rnd.Next(1, 1000);
-            string resultName = string.Concat("Vitalina" + randomNumber);
-            _userCreate.Name = resultName;
-            return resultName;
-        }
-        private string RandomJob()
-        {
-            Random rnd = new Random();
-            int randomNumber = rnd.Next(1, 1000);
-            string resultJob = string.Concat("job" + randomNumber);
-            _userCreate.Job = resultJob;
-            return resultJob;
         }
     }
 }
