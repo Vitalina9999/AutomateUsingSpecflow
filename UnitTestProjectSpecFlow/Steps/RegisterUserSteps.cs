@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using RestSharp;
@@ -20,14 +21,7 @@ namespace UnitTestProjectSpecFlow.Steps
         public User _user = new User();
         private IRestResponse _response;
 
-        //Context-Injection Sharing-Data-between-Bindings
-        private readonly string _registerUrl;
-        public RegisterUserSteps(ApiURL apiUrl)
-        {
-            _registerUrl = apiUrl.registerUrl;
-        }
-
-        [Given(@"I have entered credentials")]
+       [Given(@"I have entered credentials")]
         public void GivenIHaveEnteredCredentials(Table table)
         {
             var account = table.CreateInstance<User>();
@@ -45,7 +39,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [When(@"I sent request")]
         public void WhenISentRequest()
         {
-            RestRequest restRequest = new RestRequest(_registerUrl, RestSharp.Method.POST);
+            RestRequest restRequest = new RestRequest(ApiURL.registerUrl, RestSharp.Method.POST);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
             restRequest.AddParameter("email", _user.Email);

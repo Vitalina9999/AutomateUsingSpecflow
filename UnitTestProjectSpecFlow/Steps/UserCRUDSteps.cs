@@ -18,13 +18,7 @@ namespace UnitTestProjectSpecFlow.Features
         private RestClient _restClient = new RestClient();
         private IRestResponse _response;
        
-        private readonly Url _usersUrl;
-        public UserCRUDSteps(ApiURL apiUrl)
-        {
-            _usersUrl = apiUrl.usersUrl;
-        }
-
-        [Given(@"user with name and job")]
+      [Given(@"user with name and job")]
         public void GivenUserWithNameAndJob(Table table)
         {
             User account = table.CreateInstance<User>();
@@ -42,7 +36,7 @@ namespace UnitTestProjectSpecFlow.Features
         [When(@"I send request with method Post")]
         public void WhenISendRequestWithMethodPost()
         {
-            RestRequest restRequest = new RestRequest(_usersUrl, RestSharp.Method.POST);
+            RestRequest restRequest = new RestRequest(ApiURL.usersUrl, RestSharp.Method.POST);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
             restRequest.AddParameter("name", _user.FirstName);
@@ -71,7 +65,7 @@ namespace UnitTestProjectSpecFlow.Features
         [When(@"I send request with method Delete")]
         public void WhenISendRequestWithMethodDelete()
         {
-            RestRequest restRequest = new RestRequest(_usersUrl, RestSharp.Method.DELETE);
+            RestRequest restRequest = new RestRequest(ApiURL.usersUrl, RestSharp.Method.DELETE);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
             restRequest.AddParameter("id", _user.Id);
@@ -87,7 +81,7 @@ namespace UnitTestProjectSpecFlow.Features
         [When(@"I send request with method Put")]
         public void WhenISendRequestWithMethodPut()
         {
-            RestRequest restRequest = new RestRequest(_usersUrl, RestSharp.Method.PUT);
+            RestRequest restRequest = new RestRequest(ApiURL.usersUrl, RestSharp.Method.PUT);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
             restRequest.AddParameter("id", _user.Id);
@@ -97,7 +91,7 @@ namespace UnitTestProjectSpecFlow.Features
         [When(@"I send request with changed parameters\(name, job\) method Patch")]
         public void WhenISendRequestWithChangedParametersNameJobMethodPatch()
         {
-            Url userIdUrl = Url.Combine(_usersUrl, "/", _user.Id.ToString());
+            Url userIdUrl = Url.Combine(ApiURL.usersUrl, "/", _user.Id.ToString());
 
             RestRequest restRequest = new RestRequest(userIdUrl, RestSharp.Method.PATCH);
             restRequest.AddHeader("Accept", "application/json");

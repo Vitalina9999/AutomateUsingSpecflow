@@ -4,4 +4,4 @@
 @mytag
 Scenario: Get users info
 	When send response with delay 3 secs
-	Then the result status code is Ok
+	Then status code is Ok

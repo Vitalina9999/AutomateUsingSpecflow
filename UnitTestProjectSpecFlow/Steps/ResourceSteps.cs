@@ -22,14 +22,7 @@ namespace UnitTestProjectSpecFlow.Steps
         private IRestResponse _response;
         Resource _resource = new Resource();
 
-        private readonly Url _resourceUrl;
-
-        public ResourceSteps(ApiURL apiUrl)
-        {
-            _resourceUrl = apiUrl.resourceUrl;
-        }
-
-        [Given(@"resource number")]
+       [Given(@"resource number")]
         public void GivenResourceNumber(Table table)
         {
             Resource account = table.CreateInstance<Resource>();
@@ -39,7 +32,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [When(@"I sent resource request")]
         public void WhenISentResourceRequest()
         {
-            Url userIdUrl = Url.Combine(_resourceUrl, "/", _resource.Number.ToString());
+            Url userIdUrl = Url.Combine(ApiURL.resourceUrl, "/", _resource.Number.ToString());
 
             RestRequest restRequest = new RestRequest(userIdUrl);
             restRequest.AddHeader("Accept", "application/json");
@@ -50,7 +43,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [When(@"I sent resource request with url")]
         public void WhenISentResourceRequestWithUrl()
         {
-            RestRequest restRequest = new RestRequest(_resourceUrl);
+            RestRequest restRequest = new RestRequest(ApiURL.resourceUrl);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
             _response = _restClient.Execute(restRequest);
@@ -59,7 +52,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [When(@"I sent resource request with unknown url")]
         public void WhenISentResourceRequestWithUnknownUrl()
         {
-            Url userIdUrl = Url.Combine(_resourceUrl, "/", _resource.Number.ToString());
+            Url userIdUrl = Url.Combine(ApiURL.resourceUrl, "/", _resource.Number.ToString());
 
             RestRequest restRequest = new RestRequest(userIdUrl);
             restRequest.AddHeader("Accept", "application/json");

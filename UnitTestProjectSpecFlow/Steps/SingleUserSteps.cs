@@ -20,14 +20,7 @@ namespace UnitTestProjectSpecFlow.Steps
         private IRestResponse _response;
         public Pages _pages = new Pages();
 
-        private readonly Url _usersUrl;
-
-        public SingleUserSteps(ApiURL apiUrl)
-        {
-            _usersUrl = apiUrl.usersUrl;
-        }
-
-        [Given(@"user Id")]
+       [Given(@"user Id")]
         public void GivenUserId(Table table)
         {
             User account = table.CreateInstance<User>();
@@ -44,7 +37,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Given(@"I have sent user Id")]
         public void GivenIHaveSentUserId()
         {
-            Url userIdUrl = Url.Combine(_usersUrl, "/", _user.Id.ToString());
+            Url userIdUrl = Url.Combine(ApiURL.usersUrl, "/", _user.Id.ToString());
 
             RestRequest restRequest = new RestRequest(userIdUrl);
             restRequest.AddHeader("Accept", "application/json");
@@ -56,7 +49,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Given(@"I have sent request with page number")]
         public void GivenIHaveSentRequestWithPageNumber()
         {
-            Url usersPageUrl = _usersUrl.SetQueryParam("page", _pages.Page);
+            Url usersPageUrl = ApiURL.usersUrl.SetQueryParam("page", _pages.Page);
 
             RestRequest restRequest = new RestRequest(usersPageUrl);
             restRequest.AddHeader("Accept", "application/json");

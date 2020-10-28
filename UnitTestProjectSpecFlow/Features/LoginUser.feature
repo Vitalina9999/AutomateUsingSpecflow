@@ -7,7 +7,7 @@ Scenario: Successful login
 		| Email              | Password   |
 		| eve.holt@reqres.in | cityslicka |
 	When I send request
-	Then the result status code should be Ok
+	Then status code is Ok
 
 Scenario: UnSuccessful login (incorrect email and password)
 	Given I entered the incorrect data into the login form

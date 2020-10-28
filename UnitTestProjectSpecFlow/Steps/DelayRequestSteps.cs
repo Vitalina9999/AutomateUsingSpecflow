@@ -8,6 +8,7 @@ using RestSharp;
 using UnitTestProjectSpecFlow.Entities;
 using Flurl;
 
+
 namespace UnitTestProjectSpecFlow.Steps
 {
     [Binding]
@@ -15,16 +16,12 @@ namespace UnitTestProjectSpecFlow.Steps
     {
         public RestClient _restClient = new RestClient();
         private readonly Url _usersUrl;
-        private IRestResponse _response;
-        public DelayRequestSteps(ApiURL apiUrl)
-        {
-            _usersUrl = apiUrl.usersUrl;
-        }
-
+        public IRestResponse _response;
+        
         [When(@"send response with delay (.*) secs")]
         public void WhenSendResponseWithDelaySecs(int delaySecs)
         {
-            Url usersPageUrl = _usersUrl.SetQueryParam("delay", delaySecs);
+            Url usersPageUrl = ApiURL.usersUrl.SetQueryParam("delay", delaySecs);
 
             CancellationTokenSource source = new CancellationTokenSource();
             Task.Delay(3000, source.Token);
@@ -33,12 +30,6 @@ namespace UnitTestProjectSpecFlow.Steps
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
             _response = _restClient.Execute(restRequest);
-        }
-
-        [Then(@"the result status code is Ok")]
-        public void ThenTheResultStatusCodeIsOk()
-        {
-            Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
         }
     }
 }
