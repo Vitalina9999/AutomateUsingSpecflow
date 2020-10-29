@@ -17,10 +17,10 @@ namespace UnitTestProjectSpecFlow.Steps
     {
         public RestClient _restClient = new RestClient();
         public User _user = new User();
-        private IRestResponse _response;
+        public IRestResponse _response;
         public Pages _pages = new Pages();
 
-       [Given(@"user Id")]
+        [Given(@"user Id")]
         public void GivenUserId(Table table)
         {
             User account = table.CreateInstance<User>();
@@ -82,12 +82,6 @@ namespace UnitTestProjectSpecFlow.Steps
         public void ThenTheStatusCodeShouldBeOK()
         {
             Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
-        }
-
-        [Then(@"the status code should be Not Found")]
-        public void ThenTheStatusCodeShouldBeNotFound() //404
-        {
-            Assert.AreEqual(HttpStatusCode.NotFound, _response.StatusCode);
         }
     }
 }

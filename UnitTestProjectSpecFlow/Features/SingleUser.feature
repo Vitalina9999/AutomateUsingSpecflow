@@ -11,7 +11,7 @@ Scenario: User has full of data
 		| 2  |
 	And I have sent user Id
 	Then the result full of data
-	Then the status code should be OK
+	Then status code is Ok
 
 Scenario: User is not found
 	Given user Id
@@ -26,4 +26,4 @@ Scenario: Get list of users
 		| 2    |
 	And I have sent request with page number
 	Then the result user list with full of data
-	Then the status code should be OK
+	Then status code is Ok

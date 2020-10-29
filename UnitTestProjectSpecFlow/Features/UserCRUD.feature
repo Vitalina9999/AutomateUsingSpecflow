@@ -8,14 +8,14 @@ Scenario: Create a user with name and job
 		| Vitalina  |  | QAautomate |
 	When I send request with method Post
 	Then the result should contains name, job, id, createdAt
-	And the status code should be Created
+	And status code is Created
 
 Scenario: Delete the user
 	Given user id
 		| Id  |
 		| 897 |
 	When I send request with method Delete
-	Then the status code should be No Content
+	Then status code is No Content
 
 Scenario: Put a user
 	Given user id
@@ -23,7 +23,7 @@ Scenario: Put a user
 		| 897 |
 	When I send request with method Put
 	Then the result should contains name, job, updatedAt
-	And the status code should be Ok
+	And status code is Ok
 
 Scenario: Update a user
 	Given user with name and job
@@ -31,4 +31,4 @@ Scenario: Update a user
 		| 897 |  | Vitalina  |  | Programmist |
 	When I send request with changed parameters(name, job) method Patch
 	Then the result should contains name, job, updatedAt
-	And the status code should be Ok
+	And status code is Ok

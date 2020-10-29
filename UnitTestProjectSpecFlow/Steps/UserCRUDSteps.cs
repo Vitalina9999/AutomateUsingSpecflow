@@ -16,9 +16,9 @@ namespace UnitTestProjectSpecFlow.Features
     {
         private User _user = new User();
         private RestClient _restClient = new RestClient();
-        private IRestResponse _response;
-       
-      [Given(@"user with name and job")]
+        public IRestResponse _response;
+
+        [Given(@"user with name and job")]
         public void GivenUserWithNameAndJob(Table table)
         {
             User account = table.CreateInstance<User>();
@@ -56,12 +56,6 @@ namespace UnitTestProjectSpecFlow.Features
             Assert.IsNotNull(deserialize.Job);
         }
 
-        [Then(@"the status code should be Created")]
-        public void ThenTheStatusCodeShouldBeCreated()
-        {
-            Assert.AreEqual(HttpStatusCode.Created, _response.StatusCode);
-        }
-
         [When(@"I send request with method Delete")]
         public void WhenISendRequestWithMethodDelete()
         {
@@ -70,12 +64,6 @@ namespace UnitTestProjectSpecFlow.Features
             restRequest.RequestFormat = DataFormat.Json;
             restRequest.AddParameter("id", _user.Id);
             _response = _restClient.Execute(restRequest);
-        }
-
-        [Then(@"the status code should be No Content")]
-        public void ThenTheStatusCodeShouldBeNoContent()
-        {
-            Assert.AreEqual(HttpStatusCode.NoContent, _response.StatusCode);
         }
 
         [When(@"I send request with method Put")]
@@ -109,12 +97,6 @@ namespace UnitTestProjectSpecFlow.Features
             //Assert.IsNotNull(deserialize.Name);
             Assert.IsNotNull(deserialize.UpdatedAt);
             //Assert.IsNotNull(deserialize.Job);
-        }
-
-        [Then(@"the status code should be Ok")]
-        public void ThenTheStatusCodeShouldBeOk()
-        {
-            Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
         }
     }
 }

@@ -15,7 +15,6 @@ namespace UnitTestProjectSpecFlow.Steps
     public class DelayRequestSteps
     {
         public RestClient _restClient = new RestClient();
-        private readonly Url _usersUrl;
         public IRestResponse _response;
         
         [When(@"send response with delay (.*) secs")]
