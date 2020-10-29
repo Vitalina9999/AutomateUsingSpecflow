@@ -18,7 +18,7 @@ Scenario: User is not found
 		| Id    |
 		| 25555 |
 	And I have sent user Id
-	Then the status code should be Not Found
+	Then status code is Not Found
 
 Scenario: Get list of users
 	Given page number
