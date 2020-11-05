@@ -7,7 +7,7 @@ Scenario: Register is succesful
 		| eve.holt@reqres.in | pistol   |
 	When I sent request
 	Then the response should provide id and token
-	And the register response status code should be OK
+	And status code is Ok
 
 Scenario: Register is unsuccesful
 	Given I have entered only email
@@ -15,4 +15,4 @@ Scenario: Register is unsuccesful
 		| eve.holt@reqres.in | 
 	When I sent request
 	Then the response has an error
-	And the register response status code should be BadRequest
+	And status code is BadRequest

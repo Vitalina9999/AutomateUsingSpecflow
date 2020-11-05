@@ -16,8 +16,8 @@ namespace UnitTestProjectSpecFlow.Steps
         private User _user = new User();
         public IRestResponse _response;
 
-        [Given(@"I entered the following data into the login form:")]
-        public void GivenIEnteredTheFollowingDataIntoTheLoginForm(Table table)
+        [Given(@"Correct credentials")]
+        public void GivenCorrectCredentials(Table table)
         {
             var account = table.CreateInstance<User>();
             _user.Email = account.Email;
@@ -31,6 +31,7 @@ namespace UnitTestProjectSpecFlow.Steps
             _user.Email = account.Email;
             _user.Password = account.Password;
         }
+
         [Given(@"I entered only email into the login form")]
         public void GivenIEnteredOnlyEmailIntoTheLoginForm(Table table)
         {
@@ -38,16 +39,19 @@ namespace UnitTestProjectSpecFlow.Steps
             _user.Email = account.Email;
         }
 
-        [When(@"I send request")]
-        public void WhenISendRequest()
+        [Then(@"Login request is successful")]
+        public void ThenLoginRequestIsSuccessful()
         {
-            RestRequest restRequest = new RestRequest(ApiURL.loginUrl, RestSharp.Method.POST);
+            RestRequest restRequest = new RestRequest(ApiURL.loginUrl, Method.POST);
 
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
             restRequest.AddParameter("email", _user.Email);
             restRequest.AddParameter("password", _user.Password);
+
             _response = _restClient.Execute(restRequest);
+
+            Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
         }
 
         [Then(@"the token is NotNull")]
@@ -72,6 +76,12 @@ namespace UnitTestProjectSpecFlow.Steps
             restRequest.RequestFormat = DataFormat.Json;
             restRequest.AddParameter("email", _user.Email);
             _response = _restClient.Execute(restRequest);
+        }
+
+        [Then(@"Login response contains 404 BadRequest")]
+        public void WhenLoginResponseContains404BadRequest()
+        {
+            Assert.AreEqual(HttpStatusCode.BadRequest, _response.StatusCode);
         }
     }
 }

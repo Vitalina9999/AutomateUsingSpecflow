@@ -2,6 +2,6 @@
 	Waiting 3 secs
 
 @mytag
-Scenario: Get users info
-	When send response with delay 3 secs
-	Then status code is Ok
+Scenario: Get user info
+	When Get user info request is sent with delay 5 sec
+	Then Response is delayed for a 5 secs

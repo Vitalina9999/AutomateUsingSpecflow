@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
 using System.Threading;
 using TechTalk.SpecFlow;
@@ -16,19 +17,34 @@ namespace UnitTestProjectSpecFlow.Steps
     {
         public RestClient _restClient = new RestClient();
         public IRestResponse _response;
-        
-        [When(@"send response with delay (.*) secs")]
-        public void WhenSendResponseWithDelaySecs(int delaySecs)
+        public int _delaySecs;
+
+        [When(@"Get user info request is sent with delay (.*) sec")]
+        public void WhenGetUserInfoRequestIsSent(int delaySecs)
         {
             Url usersPageUrl = ApiURL.usersUrl.SetQueryParam("delay", delaySecs);
 
-            CancellationTokenSource source = new CancellationTokenSource();
-            Task.Delay(3000, source.Token);
+            //CancellationTokenSource source = new CancellationTokenSource();
+            //Task.Delay(3000);
 
             RestRequest restRequest = new RestRequest(usersPageUrl);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
+
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             _response = _restClient.Execute(restRequest);
+            sw.Stop();
+
+            Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
+
+            _delaySecs = sw.Elapsed.Seconds;
+        }
+
+        [Then(@"Response is delayed for a (.*) secs")]
+        public void ThenResponseIsDelayed(int delaySecs)
+        {
+            Assert.AreEqual(delaySecs, _delaySecs);
         }
     }
 }

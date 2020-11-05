@@ -78,10 +78,5 @@ namespace UnitTestProjectSpecFlow.Steps
             Assert.IsNotNull(deserialize.Data.FirstName);
             Assert.IsNotNull(deserialize.Data.LastName);
         }
-        [Then(@"the status code should be OK")]
-        public void ThenTheStatusCodeShouldBeOK()
-        {
-            Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
-        }
-    }
+       }
 }

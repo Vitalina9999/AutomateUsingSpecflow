@@ -19,7 +19,7 @@ namespace UnitTestProjectSpecFlow.Steps
     {
         public RestClient _restClient = new RestClient();
         public User _user = new User();
-        private IRestResponse _response;
+        public IRestResponse _response;
 
        [Given(@"I have entered credentials")]
         public void GivenIHaveEnteredCredentials(Table table)

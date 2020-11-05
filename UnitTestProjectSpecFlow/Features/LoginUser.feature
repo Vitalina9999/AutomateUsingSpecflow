@@ -3,17 +3,16 @@
 
 @mytag
 Scenario: Successful login
-	Given I entered the following data into the login form:
+	Given Correct credentials
 		| Email              | Password   |
 		| eve.holt@reqres.in | cityslicka |
-	When I send request
-	Then status code is Ok
+	Then Login request is successful
 
 Scenario: UnSuccessful login (incorrect email and password)
 	Given I entered the incorrect data into the login form
 		| Email          | Password |
 		| ewewew@rees.in | retete   |
-	When I send request
+	When Login request is sent
 	Then status code is BadRequest
 
 Scenario: UnSuccessful login (Missing password)
@@ -21,4 +20,4 @@ Scenario: UnSuccessful login (Missing password)
 		| Email          |
 		| ewewew@rees.in |
 	When I send request without password
-	Then status code is BadRequest
+	Then Login response contains 404 BadRequest

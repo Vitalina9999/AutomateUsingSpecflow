@@ -19,10 +19,10 @@ namespace UnitTestProjectSpecFlow.Steps
     public class ResourceSteps
     {
         public RestClient _restClient = new RestClient();
-        private IRestResponse _response;
+        public IRestResponse _response;
         Resource _resource = new Resource();
 
-       [Given(@"resource number")]
+        [Given(@"resource number")]
         public void GivenResourceNumber(Table table)
         {
             Resource account = table.CreateInstance<Resource>();
@@ -40,8 +40,8 @@ namespace UnitTestProjectSpecFlow.Steps
             _response = _restClient.Execute(restRequest);
         }
 
-        [When(@"I sent resource request with url")]
-        public void WhenISentResourceRequestWithUrl()
+        [When(@"GetResources request is sent")]
+        public void WhenGetResourcesIsSent()
         {
             RestRequest restRequest = new RestRequest(ApiURL.resourceUrl);
             restRequest.AddHeader("Accept", "application/json");
@@ -60,14 +60,23 @@ namespace UnitTestProjectSpecFlow.Steps
             _response = _restClient.Execute(restRequest);
         }
 
-        [Then(@"the response should provide list of data resource")]
-        public void ThenTheResponseShouldProvideListOfDataResource()
+        [Then(@"Resources is received")]
+        public void ThenResourcesIsReceived()
         {
+            Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
+
             MultiplyJsonResponce deserialize = JsonConvert.DeserializeObject<MultiplyJsonResponce>(_response.Content);
             Assert.IsNotNull(deserialize.Page);
             Assert.IsNotNull(deserialize.PerPage);
             Assert.IsNotNull(deserialize.Total);
             Assert.IsNotNull(deserialize.TotalPages);
+
+            Assert.IsNotNull(deserialize.Data);
+            Assert.IsTrue(deserialize.Data.Any());
+
+            //Data resource = deserialize.Data.FirstOrDefault();
+
+
         }
 
         [Then(@"the response should provide data resource")]
