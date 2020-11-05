@@ -29,26 +29,6 @@ namespace UnitTestProjectSpecFlow.Steps
             _resource.Number = account.Number;
         }
 
-        //[When(@"I sent resource request")]
-        //public void WhenISentResourceRequest()
-        //{
-        //    Url userIdUrl = Url.Combine(ApiURL.resourceUrl, "/", _resource.Number.ToString());
-
-        //    RestRequest restRequest = new RestRequest(userIdUrl);
-        //    restRequest.AddHeader("Accept", "application/json");
-        //    restRequest.RequestFormat = DataFormat.Json;
-        //    _response = _restClient.Execute(restRequest);
-        //}
-
-        [When(@"GetResources request is sent")]
-        public void WhenGetResourcesIsSent()
-        {
-            RestRequest restRequest = new RestRequest(ApiURL.resourceUrl);
-            restRequest.AddHeader("Accept", "application/json");
-            restRequest.RequestFormat = DataFormat.Json;
-            _response = _restClient.Execute(restRequest);
-        }
-
         [When(@"I sent resource request with unknown url")]
         public void WhenISentResourceRequestWithUnknownUrl()
         {
@@ -64,6 +44,11 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"Resources is received")]
         public void ThenResourcesIsReceived()
         {
+            RestRequest restRequest = new RestRequest(ApiURL.resourceUrl);
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+            _response = _restClient.Execute(restRequest);
+
             Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
 
             MultiplyJsonResponce deserialize = JsonConvert.DeserializeObject<MultiplyJsonResponce>(_response.Content);
@@ -76,7 +61,7 @@ namespace UnitTestProjectSpecFlow.Steps
             Assert.IsTrue(deserialize.Data.Any());
 
             Data resource = deserialize.Data.FirstOrDefault();
-
+            Assert.IsNotNull(resource.Id);
 
         }
 

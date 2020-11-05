@@ -8,7 +8,6 @@ Scenario: Get a single resource
 	Then Resource provide company info
 
 Scenario: Get a list of resources
-	When GetResources request is sent
 	Then Resources is received
 
 Scenario:  Get a single resource Not Found
