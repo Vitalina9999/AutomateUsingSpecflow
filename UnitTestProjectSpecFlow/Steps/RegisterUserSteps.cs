@@ -17,11 +17,11 @@ namespace UnitTestProjectSpecFlow.Steps
     [Binding]
     public sealed class RegisterUserSteps
     {
-        public RestClient _restClient = new RestClient();
-        public User _user = new User();
-        public IRestResponse _response;
+        private RestClient _restClient = new RestClient();
+        private User _user = new User();
+        private IRestResponse _response;
 
-       [Given(@"I have entered credentials")]
+        [Given(@"I have entered credentials")]
         public void GivenIHaveEnteredCredentials(Table table)
         {
             var account = table.CreateInstance<User>();
@@ -36,8 +36,8 @@ namespace UnitTestProjectSpecFlow.Steps
             _user.Email = account.Email;
         }
 
-        [When(@"I sent request")]
-        public void WhenISentRequest()
+        [Then(@"the response should provide id and token")]
+        public void ThenTheResponseShouldProvideIdAndToken()
         {
             RestRequest restRequest = new RestRequest(ApiURL.registerUrl, RestSharp.Method.POST);
             restRequest.AddHeader("Accept", "application/json");
@@ -45,32 +45,25 @@ namespace UnitTestProjectSpecFlow.Steps
             restRequest.AddParameter("email", _user.Email);
             restRequest.AddParameter("password", _user.Password);
             _response = _restClient.Execute(restRequest);
-        }
 
-        [Then(@"the response should provide id and token")]
-        public void ThenTheResponseShouldProvideIdAndToken()
-        {
             RegisterResponseJson deserialize = JsonConvert.DeserializeObject<RegisterResponseJson>(_response.Content);
-
             Assert.IsNotNull(deserialize.Id);
             Assert.IsNotNull(deserialize.Token);
-        }
-        [Then(@"the register response status code should be OK")]
-        public void ThenTheRegisterResponceStatusCodeShouldBeOK()
-        {
             Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
         }
-        
+
         [Then(@"the response has an error")]
         public void ThenTheResponseHasAnError()
         {
+            RestRequest restRequest = new RestRequest(ApiURL.registerUrl, RestSharp.Method.POST);
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+            restRequest.AddParameter("email", _user.Email);
+            restRequest.AddParameter("password", _user.Password);
+            _response = _restClient.Execute(restRequest);
+
             RegisterResponseJson deserialize = JsonConvert.DeserializeObject<RegisterResponseJson>(_response.Content);
             Assert.AreEqual(deserialize.Error, "Missing password");
-        }
-
-        [Then(@"the register response status code should be BadRequest")]
-        public void ThenTheRegisterResponseStatusCodeShouldBeBadRequest()
-        {
             Assert.AreEqual(HttpStatusCode.BadRequest, _response.StatusCode);
         }
     }

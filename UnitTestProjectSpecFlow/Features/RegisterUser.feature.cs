@@ -112,13 +112,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("I have entered credentials", ((string)(null)), table4, "Given ");
 #line hidden
 #line 8
- testRunner.When("I sent request", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 9
  testRunner.Then("the response should provide id and token", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 10
- testRunner.And("status code is Ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -131,7 +125,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Register is unsuccesful", null, tagsOfScenario, argumentsOfScenario);
-#line 12
+#line 10
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -155,17 +149,11 @@ this.ScenarioInitialize(scenarioInfo);
                             "Email"});
                 table5.AddRow(new string[] {
                             "eve.holt@reqres.in"});
-#line 13
+#line 11
  testRunner.Given("I have entered only email", ((string)(null)), table5, "Given ");
 #line hidden
-#line 16
- testRunner.When("I sent request", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 17
+#line 14
  testRunner.Then("the response has an error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 18
- testRunner.And("status code is BadRequest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
