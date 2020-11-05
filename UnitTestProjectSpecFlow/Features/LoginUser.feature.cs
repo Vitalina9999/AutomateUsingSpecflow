@@ -155,10 +155,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("I entered the incorrect data into the login form", ((string)(null)), table2, "Given ");
 #line hidden
 #line 15
- testRunner.When("Login request is sent", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 16
- testRunner.Then("status code is BadRequest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("Login request is unsuccessful", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -171,7 +168,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("UnSuccessful login (Missing password)", null, tagsOfScenario, argumentsOfScenario);
-#line 18
+#line 17
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -195,14 +192,11 @@ this.ScenarioInitialize(scenarioInfo);
                             "Email"});
                 table3.AddRow(new string[] {
                             "ewewew@rees.in"});
-#line 19
+#line 18
  testRunner.Given("I entered only email into the login form", ((string)(null)), table3, "Given ");
 #line hidden
-#line 22
- testRunner.When("I send request without password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 23
- testRunner.Then("Login response contains 404 BadRequest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 21
+ testRunner.Then("Login request is unsuccessful", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

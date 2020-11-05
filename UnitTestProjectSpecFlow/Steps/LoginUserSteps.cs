@@ -54,6 +54,21 @@ namespace UnitTestProjectSpecFlow.Steps
             Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
         }
 
+        [Then(@"Login request is unsuccessful")]
+        public void ThenLoginRequestIsUnsuccessful()
+        {
+            RestRequest restRequest = new RestRequest(ApiURL.loginUrl, Method.POST);
+
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+            restRequest.AddParameter("email", _user.Email);
+            restRequest.AddParameter("password", _user.Password);
+
+            _response = _restClient.Execute(restRequest);
+
+            Assert.AreEqual(HttpStatusCode.BadRequest, _response.StatusCode);
+        }
+        
         [Then(@"the token is NotNull")]
         public void ThenTheTokenIsNotNull()
         {
@@ -66,22 +81,6 @@ namespace UnitTestProjectSpecFlow.Steps
             string content = _response.Content;
             LoginResponceJson deserialize = JsonConvert.DeserializeObject<LoginResponceJson>(content);
             Assert.IsNotNull(deserialize.Token);
-        }
-
-        [When(@"I send request without password")]
-        public void WhenISendRequestWithoutPassword()
-        {
-            RestRequest restRequest = new RestRequest(ApiURL.loginUrl, RestSharp.Method.POST);
-            restRequest.AddHeader("Accept", "application/json");
-            restRequest.RequestFormat = DataFormat.Json;
-            restRequest.AddParameter("email", _user.Email);
-            _response = _restClient.Execute(restRequest);
-        }
-
-        [Then(@"Login response contains 404 BadRequest")]
-        public void WhenLoginResponseContains404BadRequest()
-        {
-            Assert.AreEqual(HttpStatusCode.BadRequest, _response.StatusCode);
         }
     }
 }

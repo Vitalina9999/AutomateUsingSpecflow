@@ -24,9 +24,6 @@ namespace UnitTestProjectSpecFlow.Steps
         {
             Url usersPageUrl = ApiURL.usersUrl.SetQueryParam("delay", delaySecs);
 
-            //CancellationTokenSource source = new CancellationTokenSource();
-            //Task.Delay(3000);
-
             RestRequest restRequest = new RestRequest(usersPageUrl);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
