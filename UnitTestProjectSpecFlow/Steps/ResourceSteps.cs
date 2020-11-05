@@ -29,16 +29,16 @@ namespace UnitTestProjectSpecFlow.Steps
             _resource.Number = account.Number;
         }
 
-        [When(@"I sent resource request")]
-        public void WhenISentResourceRequest()
-        {
-            Url userIdUrl = Url.Combine(ApiURL.resourceUrl, "/", _resource.Number.ToString());
+        //[When(@"I sent resource request")]
+        //public void WhenISentResourceRequest()
+        //{
+        //    Url userIdUrl = Url.Combine(ApiURL.resourceUrl, "/", _resource.Number.ToString());
 
-            RestRequest restRequest = new RestRequest(userIdUrl);
-            restRequest.AddHeader("Accept", "application/json");
-            restRequest.RequestFormat = DataFormat.Json;
-            _response = _restClient.Execute(restRequest);
-        }
+        //    RestRequest restRequest = new RestRequest(userIdUrl);
+        //    restRequest.AddHeader("Accept", "application/json");
+        //    restRequest.RequestFormat = DataFormat.Json;
+        //    _response = _restClient.Execute(restRequest);
+        //}
 
         [When(@"GetResources request is sent")]
         public void WhenGetResourcesIsSent()
@@ -58,6 +58,7 @@ namespace UnitTestProjectSpecFlow.Steps
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
             _response = _restClient.Execute(restRequest);
+            Assert.AreEqual(HttpStatusCode.NotFound, _response.StatusCode);
         }
 
         [Then(@"Resources is received")]
@@ -74,27 +75,29 @@ namespace UnitTestProjectSpecFlow.Steps
             Assert.IsNotNull(deserialize.Data);
             Assert.IsTrue(deserialize.Data.Any());
 
-            //Data resource = deserialize.Data.FirstOrDefault();
+            Data resource = deserialize.Data.FirstOrDefault();
 
 
         }
 
-        [Then(@"the response should provide data resource")]
-        public void ThenTheResponseShouldProvideDataResource()
+        [Then(@"Resource provide company info")]
+        public void ThenResourceProvideCompanyInfo()
         {
+            Url userIdUrl = Url.Combine(ApiURL.resourceUrl, "/", _resource.Number.ToString());
+
+            RestRequest restRequest = new RestRequest(userIdUrl);
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+            _response = _restClient.Execute(restRequest);
+
             ResourceJson deserialize = JsonConvert.DeserializeObject<ResourceJson>(_response.Content);
             Assert.IsNotNull(deserialize.Data);
             Assert.IsNotNull(deserialize.Data.Id);
             Assert.IsNotNull(deserialize.Ad);
-        }
-
-        [Then(@"the resource response status code should be OK")]
-        public void ThenTheResourseResponceStatusCodeShouldBeOK()
-        {
             Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
         }
 
-        [Then(@"the resource response status code should be Not found")]
+       [Then(@"the resource response status code should be Not found")]
         public void ThenTheResourceResponseStatusCodeShouldBeNotFound()
         {
             Assert.AreEqual(HttpStatusCode.NotFound, _response.StatusCode);
