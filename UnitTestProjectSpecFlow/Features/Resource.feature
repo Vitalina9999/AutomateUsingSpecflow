@@ -14,4 +14,4 @@ Scenario:  Get a single resource Not Found
 	Given resource number
 		| Number |
 		| 255555 |
-	When I sent resource request with unknown url
+	Then Resource is Not Found

@@ -143,7 +143,7 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 12
+#line 11
  testRunner.Then("Resources is received", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -157,7 +157,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get a single resource Not Found", null, tagsOfScenario, argumentsOfScenario);
-#line 14
+#line 13
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -181,11 +181,11 @@ this.ScenarioInitialize(scenarioInfo);
                             "Number"});
                 table7.AddRow(new string[] {
                             "255555"});
-#line 15
+#line 14
  testRunner.Given("resource number", ((string)(null)), table7, "Given ");
 #line hidden
-#line 18
- testRunner.When("I sent resource request with unknown url", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 17
+ testRunner.Then("Resource is Not Found", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

@@ -111,13 +111,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("user Id", ((string)(null)), table8, "Given ");
 #line hidden
 #line 12
- testRunner.And("I have sent user Id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 13
- testRunner.Then("the result full of data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 14
- testRunner.Then("status code is Ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("User info is exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -130,7 +124,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User is not found", null, tagsOfScenario, argumentsOfScenario);
-#line 16
+#line 14
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -154,13 +148,13 @@ this.ScenarioInitialize(scenarioInfo);
                             "Id"});
                 table9.AddRow(new string[] {
                             "25555"});
-#line 17
+#line 15
  testRunner.Given("user Id", ((string)(null)), table9, "Given ");
 #line hidden
-#line 20
+#line 18
  testRunner.And("I have sent user Id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 21
+#line 19
  testRunner.Then("status code is Not Found", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -174,7 +168,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get list of users", null, tagsOfScenario, argumentsOfScenario);
-#line 23
+#line 21
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -198,16 +192,16 @@ this.ScenarioInitialize(scenarioInfo);
                             "Page"});
                 table10.AddRow(new string[] {
                             "2"});
-#line 24
+#line 22
  testRunner.Given("page number", ((string)(null)), table10, "Given ");
 #line hidden
-#line 27
+#line 25
  testRunner.And("I have sent request with page number", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 28
+#line 26
  testRunner.Then("the result user list with full of data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 29
+#line 27
  testRunner.Then("status code is Ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

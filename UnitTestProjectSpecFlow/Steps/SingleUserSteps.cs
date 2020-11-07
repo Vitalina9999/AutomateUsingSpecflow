@@ -15,10 +15,10 @@ namespace UnitTestProjectSpecFlow.Steps
     [Binding]
     public class SingleUserSteps
     {
-        public RestClient _restClient = new RestClient();
-        public User _user = new User();
-        public IRestResponse _response;
-        public Pages _pages = new Pages();
+        private RestClient _restClient = new RestClient();
+        private User _user = new User();
+        private IRestResponse _response;
+        private Pages _pages = new Pages();
 
         [Given(@"user Id")]
         public void GivenUserId(Table table)
@@ -34,8 +34,8 @@ namespace UnitTestProjectSpecFlow.Steps
             _pages.Page = pagesList.Page;
         }
 
-        [Given(@"I have sent user Id")]
-        public void GivenIHaveSentUserId()
+        [Then(@"User info is received")]
+        public void ThenUserInfoIsExist()
         {
             Url userIdUrl = Url.Combine(ApiURL.usersUrl, "/", _user.Id.ToString());
 
@@ -44,10 +44,34 @@ namespace UnitTestProjectSpecFlow.Steps
             restRequest.RequestFormat = DataFormat.Json;
 
             _response = _restClient.Execute(restRequest);
+
+            Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
+            JsonResponse deserialize = JsonConvert.DeserializeObject<JsonResponse>(_response.Content);
+
+            Assert.IsNotNull(deserialize.Data.Id);
+            Assert.IsNotNull(deserialize.Data.Email);
+            Assert.IsNotNull(deserialize.Data.FirstName);
+            Assert.IsNotNull(deserialize.Data.LastName);
         }
 
-        [Given(@"I have sent request with page number")]
-        public void GivenIHaveSentRequestWithPageNumber()
+        [Then(@"User info is Not Found")]
+        public void ThenUserInfoIsNotFound()
+        {
+            Url userIdUrl = Url.Combine(ApiURL.usersUrl, "/", _user.Id.ToString());
+
+            RestRequest restRequest = new RestRequest(userIdUrl);
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+
+            _response = _restClient.Execute(restRequest);
+
+            JsonResponse deserialize = JsonConvert.DeserializeObject<JsonResponse>(_response.Content);
+
+            Assert.AreEqual(HttpStatusCode.NotFound, _response.StatusCode);
+        }
+
+        [Then(@"Users info is received")]
+        public void ThenUsersInfoIsReceived()
         {
             Url usersPageUrl = ApiURL.usersUrl.SetQueryParam("page", _pages.Page);
 
@@ -56,11 +80,7 @@ namespace UnitTestProjectSpecFlow.Steps
             restRequest.RequestFormat = DataFormat.Json;
 
             _response = _restClient.Execute(restRequest);
-        }
 
-        [Then(@"the result user list with full of data")]
-        public void ThenTheResultUserListWithFullOfData()
-        {
             MultiplyJsonResponce deserialize = JsonConvert.DeserializeObject<MultiplyJsonResponce>(_response.Content);
             Assert.IsNotNull(deserialize.Page);
             Assert.IsNotNull(deserialize.PerPage);
@@ -68,15 +88,27 @@ namespace UnitTestProjectSpecFlow.Steps
             Assert.IsNotNull(deserialize.TotalPages);
         }
 
-        [Then(@"the result full of data")]
-        public void ThenTheResultFullOfData()
-        {
-            JsonResponse deserialize = JsonConvert.DeserializeObject<JsonResponse>(_response.Content);
 
-            Assert.IsNotNull(deserialize.Data.Id);
-            Assert.IsNotNull(deserialize.Data.Email);
-            Assert.IsNotNull(deserialize.Data.FirstName);
-            Assert.IsNotNull(deserialize.Data.LastName);
-        }
-       }
+        //[Given(@"I have sent request with page number")]
+        //public void GivenIHaveSentRequestWithPageNumber()
+        //{
+        //    Url usersPageUrl = ApiURL.usersUrl.SetQueryParam("page", _pages.Page);
+
+        //    RestRequest restRequest = new RestRequest(usersPageUrl);
+        //    restRequest.AddHeader("Accept", "application/json");
+        //    restRequest.RequestFormat = DataFormat.Json;
+
+        //    _response = _restClient.Execute(restRequest);
+        //}
+
+        //[Then(@"the result user list with full of data")]
+        //public void ThenTheResultUserListWithFullOfData()
+        //{
+        //    MultiplyJsonResponce deserialize = JsonConvert.DeserializeObject<MultiplyJsonResponce>(_response.Content);
+        //    Assert.IsNotNull(deserialize.Page);
+        //    Assert.IsNotNull(deserialize.PerPage);
+        //    Assert.IsNotNull(deserialize.Total);
+        //    Assert.IsNotNull(deserialize.TotalPages);
+        //}
+    }
 }

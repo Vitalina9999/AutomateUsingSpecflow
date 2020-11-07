@@ -29,10 +29,10 @@ namespace UnitTestProjectSpecFlow.Steps
             _resource.Number = account.Number;
         }
 
-        [When(@"I sent resource request with unknown url")]
-        public void WhenISentResourceRequestWithUnknownUrl()
+        [Then(@"Resource is Not Found")]
+        public void ThenResourceIsNotFound()
         {
-            Url userIdUrl = Url.Combine(ApiURL.resourceUrl, "/", _resource.Number.ToString());
+             Url userIdUrl = Url.Combine(ApiURL.resourceUrl, "/", _resource.Number.ToString());
 
             RestRequest restRequest = new RestRequest(userIdUrl);
             restRequest.AddHeader("Accept", "application/json");
