@@ -87,28 +87,5 @@ namespace UnitTestProjectSpecFlow.Steps
             Assert.IsNotNull(deserialize.Total);
             Assert.IsNotNull(deserialize.TotalPages);
         }
-
-
-        //[Given(@"I have sent request with page number")]
-        //public void GivenIHaveSentRequestWithPageNumber()
-        //{
-        //    Url usersPageUrl = ApiURL.usersUrl.SetQueryParam("page", _pages.Page);
-
-        //    RestRequest restRequest = new RestRequest(usersPageUrl);
-        //    restRequest.AddHeader("Accept", "application/json");
-        //    restRequest.RequestFormat = DataFormat.Json;
-
-        //    _response = _restClient.Execute(restRequest);
-        //}
-
-        //[Then(@"the result user list with full of data")]
-        //public void ThenTheResultUserListWithFullOfData()
-        //{
-        //    MultiplyJsonResponce deserialize = JsonConvert.DeserializeObject<MultiplyJsonResponce>(_response.Content);
-        //    Assert.IsNotNull(deserialize.Page);
-        //    Assert.IsNotNull(deserialize.PerPage);
-        //    Assert.IsNotNull(deserialize.Total);
-        //    Assert.IsNotNull(deserialize.TotalPages);
-        //}
     }
 }

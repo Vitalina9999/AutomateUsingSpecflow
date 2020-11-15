@@ -18,9 +18,9 @@ namespace UnitTestProjectSpecFlow.Steps
     [Binding]
     public class ResourceSteps
     {
-        public RestClient _restClient = new RestClient();
-        public IRestResponse _response;
-        Resource _resource = new Resource();
+        private RestClient _restClient = new RestClient();
+        private IRestResponse _response;
+        private Resource _resource = new Resource();
 
         [Given(@"resource number")]
         public void GivenResourceNumber(Table table)

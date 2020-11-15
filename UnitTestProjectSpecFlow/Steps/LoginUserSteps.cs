@@ -14,7 +14,7 @@ namespace UnitTestProjectSpecFlow.Steps
     {
         private RestClient _restClient = new RestClient();
         private User _user = new User();
-        public IRestResponse _response;
+        private IRestResponse _response;
 
         [Given(@"Correct credentials")]
         public void GivenCorrectCredentials(Table table)

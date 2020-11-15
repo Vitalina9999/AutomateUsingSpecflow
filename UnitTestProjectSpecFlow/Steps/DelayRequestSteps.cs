@@ -15,9 +15,9 @@ namespace UnitTestProjectSpecFlow.Steps
     [Binding]
     public class DelayRequestSteps
     {
-        public RestClient _restClient = new RestClient();
-        public IRestResponse _response;
-        public int _delaySecs;
+        private RestClient _restClient = new RestClient();
+        private IRestResponse _response;
+        private int _delaySecs;
 
         [When(@"Get user info request is sent with delay (.*) sec")]
         public void WhenGetUserInfoRequestIsSent(int delaySecs)

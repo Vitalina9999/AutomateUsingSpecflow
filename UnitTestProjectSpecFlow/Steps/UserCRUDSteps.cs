@@ -16,7 +16,7 @@ namespace UnitTestProjectSpecFlow.Features
     {
         private User _user = new User();
         private RestClient _restClient = new RestClient();
-        public IRestResponse _response;
+        private IRestResponse _response;
 
         [Given(@"user with name and job")]
         public void GivenUserWithNameAndJob(Table table)
@@ -33,8 +33,8 @@ namespace UnitTestProjectSpecFlow.Features
             _user.Id = account.Id;
         }
 
-        [When(@"I send request with method Post")]
-        public void WhenISendRequestWithMethodPost()
+       [Then(@"user is created")]
+        public void ThenUserIsCreated()
         {
             RestRequest restRequest = new RestRequest(ApiURL.usersUrl, RestSharp.Method.POST);
             restRequest.AddHeader("Accept", "application/json");
@@ -43,41 +43,46 @@ namespace UnitTestProjectSpecFlow.Features
             restRequest.AddParameter("job", _user.Job);
 
             _response = _restClient.Execute(restRequest);
-        }
-
-        [Then(@"the result should contains name, job, id, createdAt")]
-        public void ThenTheResultShouldContainsNameJobIdCreatedAt()
-        {
             string content = _response.Content;
             CRUDResponseJson deserialize = JsonConvert.DeserializeObject<CRUDResponseJson>(content);
             Assert.IsNotNull(deserialize.Id);
             Assert.IsNotNull(deserialize.Name);
             Assert.IsNotNull(deserialize.CreatedAt);
             Assert.IsNotNull(deserialize.Job);
+            Assert.AreEqual(HttpStatusCode.Created, _response.StatusCode);
         }
 
-        [When(@"I send request with method Delete")]
-        public void WhenISendRequestWithMethodDelete()
+
+        [Then(@"user is deleted")]
+        public void ThenUserIsDeleted()
         {
             RestRequest restRequest = new RestRequest(ApiURL.usersUrl, RestSharp.Method.DELETE);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
             restRequest.AddParameter("id", _user.Id);
             _response = _restClient.Execute(restRequest);
+            Assert.AreEqual(HttpStatusCode.NoContent, _response.StatusCode);
         }
-
-        [When(@"I send request with method Put")]
-        public void WhenISendRequestWithMethodPut()
+        
+      
+       [Then(@"user is updated")]
+        public void ThenUserIsUpdated()
         {
             RestRequest restRequest = new RestRequest(ApiURL.usersUrl, RestSharp.Method.PUT);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
             restRequest.AddParameter("id", _user.Id);
             _response = _restClient.Execute(restRequest);
+            string content = _response.Content;
+            CRUDResponseJson deserialize = JsonConvert.DeserializeObject<CRUDResponseJson>(content);
+            //Assert.IsNotNull(deserialize.Name);
+            Assert.IsNotNull(deserialize.UpdatedAt);
+            //Assert.IsNotNull(deserialize.Job);
+            Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
         }
 
-        [When(@"I send request with changed parameters\(name, job\) method Patch")]
-        public void WhenISendRequestWithChangedParametersNameJobMethodPatch()
+        [Then(@"user's job is updated")]
+        public void ThenUserSJobIsUpdated()
         {
             Url userIdUrl = Url.Combine(ApiURL.usersUrl, "/", _user.Id.ToString());
 
@@ -87,16 +92,12 @@ namespace UnitTestProjectSpecFlow.Features
             restRequest.AddParameter("name", _user.FirstName);
             restRequest.AddParameter("job", _user.Job);
             _response = _restClient.Execute(restRequest);
-        }
 
-        [Then(@"the result should contains name, job, updatedAt")]
-        public void ThenTheResultShouldContainsNameJobUpdatedAt()
-        {
             string content = _response.Content;
             CRUDResponseJson deserialize = JsonConvert.DeserializeObject<CRUDResponseJson>(content);
-            //Assert.IsNotNull(deserialize.Name);
-            Assert.IsNotNull(deserialize.UpdatedAt);
-            //Assert.IsNotNull(deserialize.Job);
+           Assert.IsNotNull(deserialize.UpdatedAt);
+           Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
         }
+
     }
 }
