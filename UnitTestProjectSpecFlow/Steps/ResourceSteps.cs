@@ -78,7 +78,7 @@ namespace UnitTestProjectSpecFlow.Steps
             ResourceJson deserialize = JsonConvert.DeserializeObject<ResourceJson>(_response.Content);
             Assert.IsNotNull(deserialize.Data);
             Assert.IsNotNull(deserialize.Data.Id);
-            Assert.IsNotNull(deserialize.Ad);
+            Assert.IsNotNull(deserialize.Support);
             Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
         }
 

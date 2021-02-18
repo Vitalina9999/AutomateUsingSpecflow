@@ -11,7 +11,7 @@ namespace UnitTestProjectSpecFlow
         [JsonProperty("data")]
         public Data Data { get; set; }
 
-        [JsonProperty("ad")]
-        public Ad Ad { get; set; }
+        [JsonProperty("support")]
+        public Support Support { get; set; }
     }
 }
