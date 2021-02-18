@@ -52,7 +52,6 @@ namespace UnitTestProjectSpecFlow.Features
             Assert.AreEqual(HttpStatusCode.Created, _response.StatusCode);
         }
 
-
         [Then(@"user is deleted")]
         public void ThenUserIsDeleted()
         {
