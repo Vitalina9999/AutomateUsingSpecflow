@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UnitTestProjectSpecFlow.Entities
 {
-    public class Pages
+    public class UserPage
     {
        // public User Pages { get; set; }
         public int Page { get; set; }

@@ -39,7 +39,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"the response should provide id and token")]
         public void ThenTheResponseShouldProvideIdAndToken()
         {
-            RestRequest restRequest = new RestRequest(ApiURL.registerUrl, RestSharp.Method.POST);
+            RestRequest restRequest = new RestRequest(ApiUrl.registerUrl, RestSharp.Method.POST);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
             restRequest.AddParameter("email", _user.Email);
@@ -55,7 +55,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"the response has an error")]
         public void ThenTheResponseHasAnError()
         {
-            RestRequest restRequest = new RestRequest(ApiURL.registerUrl, RestSharp.Method.POST);
+            RestRequest restRequest = new RestRequest(ApiUrl.registerUrl, RestSharp.Method.POST);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
             restRequest.AddParameter("email", _user.Email);

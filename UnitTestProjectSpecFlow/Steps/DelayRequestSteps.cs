@@ -22,7 +22,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [When(@"Get user info request is sent with delay (.*) sec")]
         public void WhenGetUserInfoRequestIsSent(int delaySecs)
         {
-            Url usersPageUrl = ApiURL.usersUrl.SetQueryParam("delay", delaySecs);
+            Url usersPageUrl = ApiUrl.usersUrl.SetQueryParam("delay", delaySecs);
 
             RestRequest restRequest = new RestRequest(usersPageUrl);
             restRequest.AddHeader("Accept", "application/json");

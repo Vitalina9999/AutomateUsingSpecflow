@@ -5,10 +5,13 @@ using Newtonsoft.Json;
 
 namespace UnitTestProjectSpecFlow.Json
 {
-   public class CRUDResponseJson
+   public class CrudResponseJson
     {
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        //todo: refactor duplicate
+        public string FirstName { get; set; }
 
         [JsonProperty("job")]
         public string Job { get; set; }

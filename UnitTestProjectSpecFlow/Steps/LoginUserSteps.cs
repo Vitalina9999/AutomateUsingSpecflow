@@ -42,7 +42,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"Login request is successful")]
         public void ThenLoginRequestIsSuccessful()
         {
-            RestRequest restRequest = new RestRequest(ApiURL.loginUrl, Method.POST);
+            RestRequest restRequest = new RestRequest(ApiUrl.loginUrl, Method.POST);
 
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
@@ -57,7 +57,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"Login request is unsuccessful")]
         public void ThenLoginRequestIsUnsuccessful()
         {
-            RestRequest restRequest = new RestRequest(ApiURL.loginUrl, Method.POST);
+            RestRequest restRequest = new RestRequest(ApiUrl.loginUrl, Method.POST);
 
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;

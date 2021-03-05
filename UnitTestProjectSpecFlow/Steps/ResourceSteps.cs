@@ -32,7 +32,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"Resource is Not Found")]
         public void ThenResourceIsNotFound()
         {
-             Url userIdUrl = Url.Combine(ApiURL.resourceUrl, "/", _resource.Number.ToString());
+            Url userIdUrl = Url.Combine(ApiUrl.resourceUrl, "/", _resource.Number.ToString());
 
             RestRequest restRequest = new RestRequest(userIdUrl);
             restRequest.AddHeader("Accept", "application/json");
@@ -44,7 +44,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"Resources is received")]
         public void ThenResourcesIsReceived()
         {
-            RestRequest restRequest = new RestRequest(ApiURL.resourceUrl);
+            RestRequest restRequest = new RestRequest(ApiUrl.resourceUrl);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
             _response = _restClient.Execute(restRequest);
@@ -68,21 +68,19 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"Resource provide company info")]
         public void ThenResourceProvideCompanyInfo()
         {
-            Url userIdUrl = Url.Combine(ApiURL.resourceUrl, "/", _resource.Number.ToString());
+            Url userIdUrl = Url.Combine(ApiUrl.resourceUrl, "/", _resource.Number.ToString());
 
-            RestRequest restRequest = new RestRequest(userIdUrl);
-            restRequest.AddHeader("Accept", "application/json");
-            restRequest.RequestFormat = DataFormat.Json;
-            _response = _restClient.Execute(restRequest);
+            IRestResponse response = ApiHelper.MakeRequest(userIdUrl.ToString());
 
-            ResourceJson deserialize = JsonConvert.DeserializeObject<ResourceJson>(_response.Content);
-            Assert.IsNotNull(deserialize.Data);
-            Assert.IsNotNull(deserialize.Data.Id);
-            Assert.IsNotNull(deserialize.Support);
-            Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
+            var data = JsonConvert.DeserializeObject<ResourceJson>(response.Content);
+
+            Assert.IsNotNull(data.Data);
+            Assert.IsNotNull(data.Data.Id);
+            Assert.IsNotNull(data.Support);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
-       [Then(@"the resource response status code should be Not found")]
+        [Then(@"the resource response status code should be Not found")]
         public void ThenTheResourceResponseStatusCodeShouldBeNotFound()
         {
             Assert.AreEqual(HttpStatusCode.NotFound, _response.StatusCode);

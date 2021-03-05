@@ -28,4 +28,10 @@
     <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.4.31" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Features\UserCRUD.feature.cs">
+      <DependentUpon>UserCrud.feature</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

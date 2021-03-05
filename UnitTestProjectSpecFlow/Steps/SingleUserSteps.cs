@@ -18,7 +18,7 @@ namespace UnitTestProjectSpecFlow.Steps
         private RestClient _restClient = new RestClient();
         private User _user = new User();
         private IRestResponse _response;
-        private Pages _pages = new Pages();
+        private UserPage _pages = new UserPage();
 
         [Given(@"user Id")]
         public void GivenUserId(Table table)
@@ -30,14 +30,14 @@ namespace UnitTestProjectSpecFlow.Steps
         [Given(@"page number")]
         public void GivenPageNumber(Table table)
         {
-            Pages pagesList = table.CreateInstance<Pages>();
+            UserPage pagesList = table.CreateInstance<UserPage>();
             _pages.Page = pagesList.Page;
         }
 
         [Then(@"User info is received")]
         public void ThenUserInfoIsExist()
         {
-            Url userIdUrl = Url.Combine(ApiURL.usersUrl, "/", _user.Id.ToString());
+            Url userIdUrl = Url.Combine(ApiUrl.usersUrl, "/", _user.Id.ToString());
 
             RestRequest restRequest = new RestRequest(userIdUrl);
             restRequest.AddHeader("Accept", "application/json");
@@ -57,7 +57,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"User info is Not Found")]
         public void ThenUserInfoIsNotFound()
         {
-            Url userIdUrl = Url.Combine(ApiURL.usersUrl, "/", _user.Id.ToString());
+            Url userIdUrl = Url.Combine(ApiUrl.usersUrl, "/", _user.Id.ToString());
 
             RestRequest restRequest = new RestRequest(userIdUrl);
             restRequest.AddHeader("Accept", "application/json");
@@ -73,7 +73,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Then(@"Users info is received")]
         public void ThenUsersInfoIsReceived()
         {
-            Url usersPageUrl = ApiURL.usersUrl.SetQueryParam("page", _pages.Page);
+            Url usersPageUrl = ApiUrl.usersUrl.SetQueryParam("page", _pages.Page);
 
             RestRequest restRequest = new RestRequest(usersPageUrl);
             restRequest.AddHeader("Accept", "application/json");

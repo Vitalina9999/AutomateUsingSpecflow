@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace UnitTestProjectSpecFlow.Json.Resource
 {
-   public class Ad
+   public class Support
     {
         [JsonProperty("company")]
         public string Company { get; set; }

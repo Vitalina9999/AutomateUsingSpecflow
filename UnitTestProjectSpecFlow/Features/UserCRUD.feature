@@ -1,4 +1,4 @@
-﻿Feature: UserCRUD
+﻿Feature: UserCrud
 	 Create, Read, Update, Remove
 
 @mytag
