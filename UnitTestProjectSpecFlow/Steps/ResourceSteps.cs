@@ -70,14 +70,16 @@ namespace UnitTestProjectSpecFlow.Steps
         {
             Url userIdUrl = Url.Combine(ApiUrl.resourceUrl, "/", _resource.Number.ToString());
 
-            IRestResponse response = ApiHelper.MakeRequest(userIdUrl.ToString());
+            RestRequest restRequest = new RestRequest(userIdUrl);
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+            _response = _restClient.Execute(restRequest);
 
-            var data = JsonConvert.DeserializeObject<ResourceJson>(response.Content);
-
+            ResourceJson data = JsonConvert.DeserializeObject<ResourceJson>(_response.Content);
             Assert.IsNotNull(data.Data);
             Assert.IsNotNull(data.Data.Id);
             Assert.IsNotNull(data.Support);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
         }
 
         [Then(@"the resource response status code should be Not found")]

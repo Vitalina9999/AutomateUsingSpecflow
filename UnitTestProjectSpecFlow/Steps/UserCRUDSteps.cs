@@ -12,9 +12,11 @@ using UnitTestProjectSpecFlow.Json;
 namespace UnitTestProjectSpecFlow.Features
 {
     [Binding]
-    public class UserCrudSteps
+    public class UserCRUDSteps
     {
         private User _user = new User();
+        private RestClient _restClient = new RestClient();
+        private IRestResponse _response;
 
         [Given(@"user with name and job")]
         public void GivenUserWithNameAndJob(Table table)
@@ -34,62 +36,67 @@ namespace UnitTestProjectSpecFlow.Features
         [Then(@"user is created")]
         public void ThenUserIsCreated()
         {
-            IRestResponse response = ApiHelper.MakeRequest(ApiUrl.usersUrl, _user, Method.POST);
+            RestRequest restRequest = new RestRequest(ApiUrl.usersUrl, RestSharp.Method.POST);
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+            restRequest.AddParameter("name", _user.FirstName);
+            restRequest.AddParameter("job", _user.Job);
 
-            CrudResponseJson user = JsonConvert.DeserializeObject<CrudResponseJson>(response.Content);
-
-            Assert.IsNotNull(user.Id);
-            Assert.IsNotNull(user.FirstName);
-            Assert.IsNotNull(user.CreatedAt);
-            Assert.IsNotNull(user.Job);
-            //Assert.AreEqual(HttpStatusCode.Created, _response.StatusCode);
+            _response = _restClient.Execute(restRequest);
+            string content = _response.Content;
+            CrudResponseJson result = JsonConvert.DeserializeObject<CrudResponseJson>(content);
+            Assert.IsNotNull(result.Id);
+            Assert.IsNotNull(result.Name);
+            Assert.IsNotNull(result.CreatedAt);
+            Assert.IsNotNull(result.Job);
+            Assert.AreEqual(HttpStatusCode.Created, _response.StatusCode);
         }
 
-        //[Then(@"user is deleted")]
-        //public void ThenUserIsDeleted()
-        //{
-        //    RestRequest restRequest = new RestRequest(ApiURL.usersUrl, RestSharp.Method.DELETE);
-        //    restRequest.AddHeader("Accept", "application/json");
-        //    restRequest.RequestFormat = DataFormat.Json;
-        //    restRequest.AddParameter("id", _user.Id);
-        //    _response = _restClient.Execute(restRequest);
-        //    Assert.AreEqual(HttpStatusCode.NoContent, _response.StatusCode);
-        //}
+        [Then(@"user is deleted")]
+        public void ThenUserIsDeleted()
+        {
+            RestRequest restRequest = new RestRequest(ApiUrl.usersUrl, RestSharp.Method.DELETE);
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+            restRequest.AddParameter("id", _user.Id);
+            _response = _restClient.Execute(restRequest);
+            Assert.AreEqual(HttpStatusCode.NoContent, _response.StatusCode);
+        }
 
 
-        //[Then(@"user is updated")]
-        //public void ThenUserIsUpdated()
-        //{
-        //    RestRequest restRequest = new RestRequest(ApiURL.usersUrl, RestSharp.Method.PUT);
-        //    restRequest.AddHeader("Accept", "application/json");
-        //    restRequest.RequestFormat = DataFormat.Json;
-        //    restRequest.AddParameter("id", _user.Id);
-        //    _response = _restClient.Execute(restRequest);
-        //    string content = _response.Content;
-        //    CRUDResponseJson deserialize = JsonConvert.DeserializeObject<CRUDResponseJson>(content);
-        //    //Assert.IsNotNull(deserialize.Name);
-        //    Assert.IsNotNull(deserialize.UpdatedAt);
-        //    //Assert.IsNotNull(deserialize.Job);
-        //    Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
-        //}
+        [Then(@"user is updated")]
+        public void ThenUserIsUpdated()
+        {
+            RestRequest restRequest = new RestRequest(ApiUrl.usersUrl, RestSharp.Method.PUT);
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+            restRequest.AddParameter("id", _user.Id);
+            _response = _restClient.Execute(restRequest);
+            string content = _response.Content;
+            CrudResponseJson deserialize = JsonConvert.DeserializeObject<CrudResponseJson>(content);
+            //Assert.IsNotNull(deserialize.Name);
+            Assert.IsNotNull(deserialize.UpdatedAt);
+            //Assert.IsNotNull(deserialize.Job);
+            Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
+        }
 
-        //[Then(@"user's job is updated")]
-        //public void ThenUserSJobIsUpdated()
-        //{
-        //    Url userIdUrl = Url.Combine(ApiURL.usersUrl, "/", _user.Id.ToString());
+        [Then(@"user's job is updated")]
+        public void ThenUserSJobIsUpdated()
+        {
+            Url userIdUrl = Url.Combine(ApiUrl.usersUrl, "/", _user.Id.ToString());
 
-        //    RestRequest restRequest = new RestRequest(userIdUrl, RestSharp.Method.PATCH);
-        //    restRequest.AddHeader("Accept", "application/json");
-        //    restRequest.RequestFormat = DataFormat.Json;
-        //    restRequest.AddParameter("name", _user.FirstName);
-        //    restRequest.AddParameter("job", _user.Job);
-        //    _response = _restClient.Execute(restRequest);
+            RestRequest restRequest = new RestRequest(userIdUrl, RestSharp.Method.PATCH);
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+            restRequest.AddParameter("name", _user.FirstName);
+            restRequest.AddParameter("job", _user.Job);
+            _response = _restClient.Execute(restRequest);
 
-        //    string content = _response.Content;
-        //    CRUDResponseJson deserialize = JsonConvert.DeserializeObject<CRUDResponseJson>(content);
-        //    Assert.IsNotNull(deserialize.UpdatedAt);
-        //    Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
-        //}
+            string content = _response.Content;
+            CrudResponseJson result = JsonConvert.DeserializeObject<CrudResponseJson>(content);
+            Assert.IsNotNull(result.UpdatedAt);
+            Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
+        }
 
     }
 }
