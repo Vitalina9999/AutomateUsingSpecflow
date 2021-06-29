@@ -7,9 +7,9 @@ namespace UnitTestProjectSpecFlow.Entities
     public class ApiUrl
     {
         public const string host = "https://reqres.in";
-        public const string loginUrl = "/api/login";
-        public const string registerUrl = "/api/register";
-        public const string usersUrl = "/api/users";
-        public const string resourceUrl = "/api/unknown";
+        public const string loginUrl = ApiUrl.host+"/api/login";
+        public const string registerUrl = ApiUrl.host + "/api/register";
+        public const string usersUrl = ApiUrl.host + "/api/users";
+        public const string resourceUrl = ApiUrl.host + "/api/unknown";
     }
 }
