@@ -13,7 +13,7 @@ using Flurl;
 namespace UnitTestProjectSpecFlow.Steps
 {
     [Binding]
-    public class SingleUserSteps
+    public class UserInfoSteps
     {
         private RestClient _restClient = new RestClient();
         private User _user = new User();

@@ -1,4 +1,4 @@
-﻿Feature: SingleUser
+﻿Feature: User
 	Receive data from existed user:
 	id, email, first_name, last_name, avatar
 	Receive StatusCode Ok 200

@@ -28,7 +28,7 @@ namespace UnitTestProjectSpecFlow.Features
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "UserCRUD.feature"
+#line 1 "UserCrud.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
@@ -102,16 +102,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                             "FirstName",
                             "",
                             "Job"});
-                table11.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "Vitalina",
                             "",
                             "QAautomate"});
 #line 6
- testRunner.Given("user with name and job", ((string)(null)), table11, "Given ");
+ testRunner.Given("user with name and job", ((string)(null)), table8, "Given ");
 #line hidden
 #line 9
  testRunner.Then("user is created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -147,12 +147,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                             "Id"});
-                table12.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "897"});
 #line 12
- testRunner.Given("user id", ((string)(null)), table12, "Given ");
+ testRunner.Given("user id", ((string)(null)), table9, "Given ");
 #line hidden
 #line 15
  testRunner.Then("user is deleted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -188,12 +188,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                             "Id"});
-                table13.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "897"});
 #line 18
- testRunner.Given("user id", ((string)(null)), table13, "Given ");
+ testRunner.Given("user id", ((string)(null)), table10, "Given ");
 #line hidden
 #line 21
  testRunner.Then("user is updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -229,20 +229,20 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
                             "Id",
                             "",
                             "FirstName",
                             "",
                             "Job"});
-                table14.AddRow(new string[] {
+                table11.AddRow(new string[] {
                             "897",
                             "",
                             "Vitalina",
                             "",
                             "Programmist"});
 #line 24
- testRunner.Given("user with name and job", ((string)(null)), table14, "Given ");
+ testRunner.Given("user with name and job", ((string)(null)), table11, "Given ");
 #line hidden
 #line 27
  testRunner.Then("user\'s job is updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

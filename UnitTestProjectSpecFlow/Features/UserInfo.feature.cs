@@ -20,22 +20,22 @@ namespace UnitTestProjectSpecFlow.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("SingleUser")]
-    public partial class SingleUserFeature
+    [NUnit.Framework.DescriptionAttribute("User")]
+    public partial class UserFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "SingleUser.feature"
+#line 1 "UserInfo.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "SingleUser", "\tReceive data from existed user:\r\n\tid, email, first_name, last_name, avatar\r\n\tRec" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "User", "\tReceive data from existed user:\r\n\tid, email, first_name, last_name, avatar\r\n\tRec" +
                     "eive StatusCode Ok 200\r\n\tOtherwise Not Found 400", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -103,12 +103,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
                             "Id"});
-                table8.AddRow(new string[] {
+                table12.AddRow(new string[] {
                             "2"});
 #line 9
- testRunner.Given("user Id", ((string)(null)), table8, "Given ");
+ testRunner.Given("user Id", ((string)(null)), table12, "Given ");
 #line hidden
 #line 12
  testRunner.Then("User info is received", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -144,12 +144,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
                             "Id"});
-                table9.AddRow(new string[] {
+                table13.AddRow(new string[] {
                             "25555"});
 #line 15
- testRunner.Given("user Id", ((string)(null)), table9, "Given ");
+ testRunner.Given("user Id", ((string)(null)), table13, "Given ");
 #line hidden
 #line 18
  testRunner.Then("User info is Not Found", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -185,12 +185,12 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
                             "Page"});
-                table10.AddRow(new string[] {
+                table14.AddRow(new string[] {
                             "2"});
 #line 21
- testRunner.Given("page number", ((string)(null)), table10, "Given ");
+ testRunner.Given("page number", ((string)(null)), table14, "Given ");
 #line hidden
 #line 24
  testRunner.Then("Users info is received", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
