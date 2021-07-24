@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using UnitTestProjectSpecFlow.Steps;
-using Data = UnitTestProjectSpecFlow.Json.Resource.Data;
+using ResourceDataResponce = UnitTestProjectSpecFlow.Json.Resource.ResourceDataResponce;
 
 namespace UnitTestProjectSpecFlow.Features
 {
-    public class ResourceJson
+    public class ResourceFullInfoResponce
     {
         [JsonProperty("data")]
-        public Data Data { get; set; }
+        public ResourceDataResponce Data { get; set; }
         
         [JsonProperty("support")]
-        public Support Support { get; set; }
+        public UserInfoSupportResponce Support { get; set; }
     }
 }

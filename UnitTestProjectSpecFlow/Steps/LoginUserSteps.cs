@@ -13,13 +13,13 @@ namespace UnitTestProjectSpecFlow.Steps
     public class LoginUserSteps
     {
         private RestClient _restClient = new RestClient();
-        private User _user = new User();
+        private UserInfo _user = new UserInfo();
         private IRestResponse _response;
 
         [Given(@"Correct credentials")]
         public void GivenCorrectCredentials(Table table)
         {
-            var account = table.CreateInstance<User>();
+            var account = table.CreateInstance<UserInfo>();
             _user.Email = account.Email;
             _user.Password = account.Password;
         }
@@ -27,7 +27,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Given(@"I entered the incorrect data into the login form")]
         public void GivenIEnteredTheIncorrectDataIntoTheLoginForm(Table table)
         {
-            var account = table.CreateInstance<User>();
+            var account = table.CreateInstance<UserInfo>();
             _user.Email = account.Email;
             _user.Password = account.Password;
         }
@@ -35,7 +35,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Given(@"I entered only email into the login form")]
         public void GivenIEnteredOnlyEmailIntoTheLoginForm(Table table)
         {
-            var account = table.CreateInstance<User>();
+            var account = table.CreateInstance<UserInfo>();
             _user.Email = account.Email;
         }
 
@@ -79,7 +79,7 @@ namespace UnitTestProjectSpecFlow.Steps
         public void ThenDataIsValid()
         {
             string content = _response.Content;
-            LoginResponceJson deserialize = JsonConvert.DeserializeObject<LoginResponceJson>(content);
+            LoginResponce deserialize = JsonConvert.DeserializeObject<LoginResponce>(content);
             Assert.IsNotNull(deserialize.Token);
         }
     }

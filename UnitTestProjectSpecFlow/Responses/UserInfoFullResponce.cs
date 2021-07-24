@@ -6,12 +6,12 @@ using UnitTestProjectSpecFlow.Steps;
 
 namespace UnitTestProjectSpecFlow
 {
-    public class JsonResponse
+    public class UserInfoFullResponce
     {
         [JsonProperty("data")]
-        public Data Data { get; set; }
+        public UserInfoDataResponce Data { get; set; }
 
         [JsonProperty("support")]
-        public Support Support { get; set; }
+        public UserInfoSupportResponce Support { get; set; }
     }
 }

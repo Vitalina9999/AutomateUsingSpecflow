@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace UnitTestProjectSpecFlow.Json
 {
-   public class RegisterResponseJson
+   public class RegisterResponse
     {
         [JsonProperty("token")]
         public string Token { get; set; }

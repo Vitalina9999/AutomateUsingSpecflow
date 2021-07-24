@@ -2,25 +2,23 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnitTestProjectSpecFlow.Steps;
 
-namespace UnitTestProjectSpecFlow.Steps
+namespace UnitTestProjectSpecFlow.Entities
 {
-    public class Data
+    public class UserInfo
     {
-        [JsonProperty("email")]
         public string Email { get; set; }
-
-        [JsonProperty("id")]
+        public string Password { get; set; }
         public int Id { get; set; }
 
-        [JsonProperty("first_name")]
+        [JsonProperty("name")]
         public string FirstName { get; set; }
-
-        [JsonProperty("last_name")]
         public string LastName { get; set; }
-
-        [JsonProperty("avatar")]
         public string Avatar { get; set; }
-      
+
+        [JsonProperty("job")]
+        public string Job { get; set; }
+
     }
 }

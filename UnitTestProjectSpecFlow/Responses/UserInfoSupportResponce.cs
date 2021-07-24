@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Newtonsoft.Json;
 
-namespace UnitTestProjectSpecFlow.Json.Resource
+namespace UnitTestProjectSpecFlow.Steps
 {
-   public class Support
+    public class UserInfoSupportResponce
     {
         [JsonProperty("company")]
         public string Company { get; set; }

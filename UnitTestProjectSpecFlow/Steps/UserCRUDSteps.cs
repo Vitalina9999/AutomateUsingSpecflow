@@ -12,16 +12,16 @@ using UnitTestProjectSpecFlow.Json;
 namespace UnitTestProjectSpecFlow.Features
 {
     [Binding]
-    public class UserCRUDSteps
+    public class UserCrudSteps
     {
-        private User _user = new User();
+        private UserInfo _user = new UserInfo();
         private RestClient _restClient = new RestClient();
         private IRestResponse _response;
 
         [Given(@"user with name and job")]
         public void GivenUserWithNameAndJob(Table table)
         {
-            User account = table.CreateInstance<User>();
+            UserInfo account = table.CreateInstance<UserInfo>();
             _user.FirstName = account.FirstName;
             _user.Job = account.Job;
         }
@@ -29,7 +29,7 @@ namespace UnitTestProjectSpecFlow.Features
         [Given(@"user id")]
         public void GivenUserId(Table table)
         {
-            User account = table.CreateInstance<User>();
+            UserInfo account = table.CreateInstance<UserInfo>();
             _user.Id = account.Id;
         }
 
@@ -44,7 +44,7 @@ namespace UnitTestProjectSpecFlow.Features
 
             _response = _restClient.Execute(restRequest);
             string content = _response.Content;
-            CrudResponseJson result = JsonConvert.DeserializeObject<CrudResponseJson>(content);
+            UserCrudResponse result = JsonConvert.DeserializeObject<UserCrudResponse>(content);
             Assert.IsNotNull(result.Id);
             Assert.IsNotNull(result.Name);
             Assert.IsNotNull(result.CreatedAt);
@@ -73,7 +73,7 @@ namespace UnitTestProjectSpecFlow.Features
             restRequest.AddParameter("id", _user.Id);
             _response = _restClient.Execute(restRequest);
             string content = _response.Content;
-            CrudResponseJson deserialize = JsonConvert.DeserializeObject<CrudResponseJson>(content);
+            UserCrudResponse deserialize = JsonConvert.DeserializeObject<UserCrudResponse>(content);
             //Assert.IsNotNull(deserialize.Name);
             Assert.IsNotNull(deserialize.UpdatedAt);
             //Assert.IsNotNull(deserialize.Job);
@@ -93,7 +93,7 @@ namespace UnitTestProjectSpecFlow.Features
             _response = _restClient.Execute(restRequest);
 
             string content = _response.Content;
-            CrudResponseJson result = JsonConvert.DeserializeObject<CrudResponseJson>(content);
+            UserCrudResponse result = JsonConvert.DeserializeObject<UserCrudResponse>(content);
             Assert.IsNotNull(result.UpdatedAt);
             Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
         }

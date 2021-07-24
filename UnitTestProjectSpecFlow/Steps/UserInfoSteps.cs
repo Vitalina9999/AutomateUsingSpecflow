@@ -16,14 +16,14 @@ namespace UnitTestProjectSpecFlow.Steps
     public class UserInfoSteps
     {
         private RestClient _restClient = new RestClient();
-        private User _user = new User();
+        private UserInfo _user = new UserInfo();
         private IRestResponse _response;
         private UserPage _pages = new UserPage();
 
         [Given(@"user Id")]
         public void GivenUserId(Table table)
         {
-            User account = table.CreateInstance<User>();
+            UserInfo account = table.CreateInstance<UserInfo>();
             _user.Id = account.Id;
         }
 
@@ -46,7 +46,7 @@ namespace UnitTestProjectSpecFlow.Steps
             _response = _restClient.Execute(restRequest);
 
             Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
-            JsonResponse deserialize = JsonConvert.DeserializeObject<JsonResponse>(_response.Content);
+            UserInfoFullResponce deserialize = JsonConvert.DeserializeObject<UserInfoFullResponce>(_response.Content);
 
             Assert.IsNotNull(deserialize.Data.Id);
             Assert.IsNotNull(deserialize.Data.Email);
@@ -65,7 +65,7 @@ namespace UnitTestProjectSpecFlow.Steps
 
             _response = _restClient.Execute(restRequest);
 
-            JsonResponse deserialize = JsonConvert.DeserializeObject<JsonResponse>(_response.Content);
+            UserInfoFullResponce deserialize = JsonConvert.DeserializeObject<UserInfoFullResponce>(_response.Content);
 
             Assert.AreEqual(HttpStatusCode.NotFound, _response.StatusCode);
         }

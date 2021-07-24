@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace UnitTestProjectSpecFlow.Json.Resource
 {
-    public class Data
+    public class ResourceDataResponce
     {
         [JsonProperty("id")]
         public int Id { get; set; }

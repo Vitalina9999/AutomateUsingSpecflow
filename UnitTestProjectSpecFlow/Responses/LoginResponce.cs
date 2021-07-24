@@ -1,6 +1,6 @@
 ﻿namespace UnitTestProjectSpecFlow.Steps
 {
-    public class LoginResponceJson
+    public class LoginResponce
     {
         public string Token { get; set; }
     }

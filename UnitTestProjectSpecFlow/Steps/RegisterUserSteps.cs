@@ -18,13 +18,13 @@ namespace UnitTestProjectSpecFlow.Steps
     public sealed class RegisterUserSteps
     {
         private RestClient _restClient = new RestClient();
-        private User _user = new User();
+        private UserInfo _user = new UserInfo();
         private IRestResponse _response;
 
         [Given(@"I have entered credentials")]
         public void GivenIHaveEnteredCredentials(Table table)
         {
-            var account = table.CreateInstance<User>();
+            var account = table.CreateInstance<UserInfo>();
             _user.Email = account.Email;
             _user.Password = account.Password;
         }
@@ -32,7 +32,7 @@ namespace UnitTestProjectSpecFlow.Steps
         [Given(@"I have entered only email")]
         public void GivenIHaveEnteredOnlyEmail(Table table)
         {
-            var account = table.CreateInstance<User>();
+            var account = table.CreateInstance<UserInfo>();
             _user.Email = account.Email;
         }
 
@@ -46,7 +46,7 @@ namespace UnitTestProjectSpecFlow.Steps
             restRequest.AddParameter("password", _user.Password);
             _response = _restClient.Execute(restRequest);
 
-            RegisterResponseJson deserialize = JsonConvert.DeserializeObject<RegisterResponseJson>(_response.Content);
+            RegisterResponse deserialize = JsonConvert.DeserializeObject<RegisterResponse>(_response.Content);
             Assert.IsNotNull(deserialize.Id);
             Assert.IsNotNull(deserialize.Token);
             Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
@@ -62,7 +62,7 @@ namespace UnitTestProjectSpecFlow.Steps
             restRequest.AddParameter("password", _user.Password);
             _response = _restClient.Execute(restRequest);
 
-            RegisterResponseJson deserialize = JsonConvert.DeserializeObject<RegisterResponseJson>(_response.Content);
+            RegisterResponse deserialize = JsonConvert.DeserializeObject<RegisterResponse>(_response.Content);
             Assert.AreEqual(deserialize.Error, "Missing password");
             Assert.AreEqual(HttpStatusCode.BadRequest, _response.StatusCode);
         }

@@ -8,10 +8,9 @@ namespace UnitTestProjectSpecFlow.Json
 {
    public class MultiplyJsonResponce
     {
-        public List<Data> Data { get; set; }
-        //public Ad AdList { get; set; }
-
-        public List<JsonResponse> JsonResponceList { get; set; }
+        public List<UserInfoDataResponce> Data { get; set; }
+        
+        public List<UserInfoFullResponce> JsonResponceList { get; set; }
 
         [JsonProperty("page")]
         public int Page { get; set; }

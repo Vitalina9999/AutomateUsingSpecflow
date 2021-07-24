@@ -60,7 +60,7 @@ namespace UnitTestProjectSpecFlow.Steps
             Assert.IsNotNull(deserialize.Data);
             Assert.IsTrue(deserialize.Data.Any());
 
-            Data resource = deserialize.Data.FirstOrDefault();
+            UserInfoDataResponce resource = deserialize.Data.FirstOrDefault();
             Assert.IsNotNull(resource.Id);
 
         }
@@ -75,7 +75,7 @@ namespace UnitTestProjectSpecFlow.Steps
             restRequest.RequestFormat = DataFormat.Json;
             _response = _restClient.Execute(restRequest);
 
-            ResourceJson data = JsonConvert.DeserializeObject<ResourceJson>(_response.Content);
+            ResourceFullInfoResponce data = JsonConvert.DeserializeObject<ResourceFullInfoResponce>(_response.Content);
             Assert.IsNotNull(data.Data);
             Assert.IsNotNull(data.Data.Id);
             Assert.IsNotNull(data.Support);
