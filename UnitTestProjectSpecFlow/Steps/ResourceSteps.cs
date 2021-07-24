@@ -75,7 +75,7 @@ namespace UnitTestProjectSpecFlow.Steps
             restRequest.RequestFormat = DataFormat.Json;
             _response = _restClient.Execute(restRequest);
 
-            ResourceFullInfoResponce data = JsonConvert.DeserializeObject<ResourceFullInfoResponce>(_response.Content);
+            ResourceInfoFullResponce data = JsonConvert.DeserializeObject<ResourceInfoFullResponce>(_response.Content);
             Assert.IsNotNull(data.Data);
             Assert.IsNotNull(data.Data.Id);
             Assert.IsNotNull(data.Support);

@@ -7,7 +7,7 @@ using ResourceDataResponce = UnitTestProjectSpecFlow.Json.Resource.ResourceDataR
 
 namespace UnitTestProjectSpecFlow.Features
 {
-    public class ResourceFullInfoResponce
+    public class ResourceInfoFullResponce
     {
         [JsonProperty("data")]
         public ResourceDataResponce Data { get; set; }
