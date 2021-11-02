@@ -6,10 +6,9 @@ using UnitTestProjectSpecFlow.Steps;
 
 namespace UnitTestProjectSpecFlow.Json
 {
-   public class MultiplyJsonResponce
+    public class MultiplyJsonResponce
     {
         public List<UserInfoDataResponce> Data { get; set; }
-        
         public List<UserInfoFullResponce> JsonResponceList { get; set; }
 
         [JsonProperty("page")]
